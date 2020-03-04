@@ -1,10 +1,11 @@
 @include('layouts.header')
 
-@section('content')
-
-<div style="background-color: red;">
-</div>
-
-@endsection
+@section('sidebar')
+            <div class="">
+                
+              </div>           
+            @show
+            </div>
+            <div> @yield('content')</div>
 
 @include('layouts.footer')

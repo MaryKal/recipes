@@ -14,7 +14,7 @@ class HomeController extends Controller
     public function index()
     {
         $title = 'Recipes';
-        $subTitle = '<em>Recipes</em>';
+        // $subTitle = '<em>Recipes</em>';
         
         return view('home.index', compact('title'));
     }

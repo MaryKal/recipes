@@ -1,11 +1,14 @@
 @include('layouts.header')
 
+<div class="structure">
+  <div>
+    @section('sidebar')
+    <p>This is the master sidebar.<p>
+        @show
+  </div>
+  <div class="container">
+    @yield('content')
+  </div>
+</div>
 
-
-      <div class="container-fluid">
-        
-        @yield('content')         
-      </div>
-
-
-      @include('layouts.footer')
+  @include('layouts.footer')

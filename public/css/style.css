@@ -2,3 +2,14 @@ ul{
     display: flex;
     list-style-type: none;
 }
+
+.structure{
+    display: flex;
+}
+a{
+	text-decoration: none;
+
+}
+
+
+
