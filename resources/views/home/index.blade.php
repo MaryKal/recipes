@@ -5,52 +5,52 @@
 
 <div>
 
-    <h2 class="center">Populat categories</h2>
+    <h2 class="center">Popular categories</h2>
 
     <div class="popular-categories">
         <div>
-            <h4></h4>
+            <h4>Lorem, ipsum.</h4>
+            <p>Lorem ipsum dolor sit amet.</p>
+            <img src="" alt="">
+        </div>
+        <div>
+            <h4>Lorem, ipsum.</h4>
+            <p>Lorem ipsum dolor sit amet.</p>
+            <img src="" alt="">
+        </div>
+        <div>
+            <h4>Lorem, ipsum.</h4>
+            <p>Lorem ipsum dolor sit amet.</p>
+            <img src="" alt="">
+        </div>
+        <div>
+            <h4>Lorem, ipsum.</h4>
             <p></p>
             <img src="" alt="">
         </div>
         <div>
-            <h4></h4>
-            <p></p>
+            <h4>Lorem, ipsum.</h4>
+            <p>Lorem ipsum dolor sit amet.</p>
             <img src="" alt="">
         </div>
         <div>
-            <h4></h4>
-            <p></p>
+            <h4>Lorem, ipsum.</h4>
+            <p>Lorem ipsum dolor sit amet.</p>
             <img src="" alt="">
         </div>
         <div>
-            <h4></h4>
-            <p></p>
+            <h4>Lorem, ipsum.</h4>
+            <p>Lorem ipsum dolor sit amet.</p>
             <img src="" alt="">
         </div>
         <div>
-            <h4></h4>
-            <p></p>
+            <h4>Lorem, ipsum.</h4>
+            <p>Lorem ipsum dolor sit amet.</p>
             <img src="" alt="">
         </div>
         <div>
-            <h4></h4>
-            <p></p>
-            <img src="" alt="">
-        </div>
-        <div>
-            <h4></h4>
-            <p></p>
-            <img src="" alt="">
-        </div>
-        <div>
-            <h4></h4>
-            <p></p>
-            <img src="" alt="">
-        </div>
-        <div>
-            <h4></h4>
-            <p></p>
+            <h4>Lorem, ipsum.</h4>
+            <p>Lorem ipsum dolor sit amet.</p>
             <img src="" alt="">
         </div>
     </div>
@@ -83,4 +83,29 @@
         <button class="newest-recipes-button">View all</button>
     </div>
 </div>
+
+<div class="popular-recipes">
+    <div>
+        <div>
+            <img src="" alt="">
+            <h4></h4>
+            <p></p>
+        </div>
+        <div>
+            <img src="" alt="">
+            <h4></h4>
+            <p></p>
+        </div>
+        <div>
+            <img src="" alt="">
+            <h4></h4>
+            <p></p>
+        </div>
+        <div>
+            <img src="" alt="">
+            <h4></h4>
+            <p></p>
+        </div>
+    </div>
+</div>    
 @endsection
