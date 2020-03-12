@@ -36,4 +36,9 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function recipe()
+    {
+        return $this->belongsToMany('App\Recipe','recipes_categories','user_id','recipe_id');
+    }
 }
