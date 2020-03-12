@@ -1,12 +1,86 @@
 @extends('layouts.full-width')
 
 
-
 @section('content')
-    
-<h1>{{$title}} This is my body content</h1>
 
+<div>
+
+    <h2 class="center">Populat categories</h2>
+
+    <div class="popular-categories">
+        <div>
+            <h4></h4>
+            <p></p>
+            <img src="" alt="">
+        </div>
+        <div>
+            <h4></h4>
+            <p></p>
+            <img src="" alt="">
+        </div>
+        <div>
+            <h4></h4>
+            <p></p>
+            <img src="" alt="">
+        </div>
+        <div>
+            <h4></h4>
+            <p></p>
+            <img src="" alt="">
+        </div>
+        <div>
+            <h4></h4>
+            <p></p>
+            <img src="" alt="">
+        </div>
+        <div>
+            <h4></h4>
+            <p></p>
+            <img src="" alt="">
+        </div>
+        <div>
+            <h4></h4>
+            <p></p>
+            <img src="" alt="">
+        </div>
+        <div>
+            <h4></h4>
+            <p></p>
+            <img src="" alt="">
+        </div>
+        <div>
+            <h4></h4>
+            <p></p>
+            <img src="" alt="">
+        </div>
+    </div>
+    <div class="center">
+        <button class="all-categories-button">All categories</button>
+    </div>
+</div>
+<div>
+    <h2 class="center">Newest recipes</h2>
+    <div class="newest-recipes">
+
+        <div>
+            <h3>Lorem, ipsum.</h3>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit, veniam.</p>
+        </div>
+        <div>
+            <h3>Lorem, ipsum.</h3>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit, veniam.</p>
+        </div>
+        <div>
+            <h3>Lorem, ipsum.</h3>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit, veniam.</p>
+        </div>
+        <div>
+            <h3>Lorem, ipsum.</h3>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit, veniam.</p>
+        </div>
+    </div>
+    <div class="center">
+        <button class="newest-recipes-button">View all</button>
+    </div>
+</div>
 @endsection
-
-
-
