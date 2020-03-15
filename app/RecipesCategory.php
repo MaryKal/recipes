@@ -6,6 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class RecipesCategory extends Model
 {
+    protected $table = 'recipes_categories';
+    public $timestamps = false;
+    
     public function categories()
     {
         return $this->belongsToMany('App\Category','recipes_categories','recipe_id','category_id');
@@ -15,8 +18,8 @@ class RecipesCategory extends Model
         return $this->belongsToMany('App\Recipe','recipes_categories','category_id','recipe_id');
     }
 
-    public function users()
-    {
-        return $this->belongsToMany('App\User','users','user_id','recipe_id');
-    }
+    // public function users()
+    // {
+    //     return $this->belongsToMany('App\User','users','user_id','recipe_id');
+    // }
 }
