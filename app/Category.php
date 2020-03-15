@@ -14,8 +14,5 @@ class Category extends Model
     {
         return $this->belongsToMany('App\Recipe','recipes_categories','category_id','recipe_id');
     }
-    public function setSlugAttribute($value)
-    {
-        $this->attributes['slug'] = $value ? \Str::slug($value, '-') : \Str::slug($this->attributes['name'],'-');
-    }
+    
 }
