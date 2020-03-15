@@ -20,6 +20,7 @@ class CreateRecipesTable extends Migration
             $table->string('image')->nullable();
             $table->text('describe');
             $table->integer('likes');
+            // $table->integer('time');
             $table->timestamps();
         });
     }
