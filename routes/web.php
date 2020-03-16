@@ -36,3 +36,16 @@ Route::group([
 
 
             });
+
+
+Route::resource('/categories', 'CategoryController');
+Route::resource('/recipes', 'RecipeController');
+Route::resource('/products', 'ProductController');
+Route::resource('/home', 'HomeController');
+
+// Route::get('/category', 'HomeController@index');
+
+
+
+
+

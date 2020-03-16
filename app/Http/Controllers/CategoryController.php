@@ -14,7 +14,11 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        $categories = Category::all();
+        
+        // dd($categories);
+
+        return view('categories.all-categories', compact('categories'));
     }
 
     /**
@@ -44,9 +48,18 @@ class CategoryController extends Controller
      * @param  \App\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function show(Category $category)
+    public function show($id)
     {
-        //
+        $category = Category::find($id);
+
+        // $categories = Category::all();
+         $cat = Category::where('id', $id)->first()->id;
+         $recipes = Category::find($cat)->recipe;
+
+        // dd($category);
+
+        return view('categories.single-category', compact('category','recipes'));
+       
     }
 
     /**
@@ -82,4 +95,6 @@ class CategoryController extends Controller
     {
         //
     }
+
+    
 }

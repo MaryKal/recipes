@@ -41,4 +41,12 @@ class User extends Authenticatable
     {
         return $this->belongsToMany('App\Recipe','recipes_categories','user_id','recipe_id');
     }
+    public function isAdmin()
+    {
+        return $this->role == 'admin' ? true : false;
+    }
+    public function isUser()
+    {
+        return $this->role == null ? true : false;
+    }
 }
