@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Recipe;
 use Illuminate\Http\Request;
+use App\Category;
+use App\Resipe;
+use App\Comment;
 
 class RecipeController extends Controller
 {
@@ -14,7 +17,11 @@ class RecipeController extends Controller
      */
     public function index()
     {
-        //
+        $recipes = Recipe::all();
+        
+        // dd($categories);
+
+        return view('recipes.all-recipes', compact('recipes'));
     }
 
     /**
@@ -24,7 +31,11 @@ class RecipeController extends Controller
      */
     public function create()
     {
-        //
+        // $categories = Category::all();
+        $recipe = new Recipe();
+        $recipes = Recipe::all('id','name')->pluck('name','id');
+        dd($recipes); 
+        return view('user.add', compact('recipe','resipes'));
     }
 
     /**
@@ -35,7 +46,24 @@ class RecipeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|max:100|min:3',
+            'describe' => 'required|min:3',
+            'category' => 'required',
+            'img' =>'image|mimes:jpeg,png,jpg,gif,svg:max:2048',
+
+        ]);
+        $recipe = new Recipe();
+        //в модели все столбцы таблицы записываются в свойства
+        
+        $recipe->name = $request->title;
+        $recipe->describe = $request->describe;
+        $recipe->category_id = $request->category;
+
+        
+        $recipe->save();
+
+        return redirect('recipes.all-resipes')->with('success', 'Your recipe added successfully');
     }
 
     /**
@@ -44,9 +72,11 @@ class RecipeController extends Controller
      * @param  \App\Recipe  $recipe
      * @return \Illuminate\Http\Response
      */
-    public function show(Recipe $recipe)
+    public function show($id)
     {
-        //
+        $recipe = Recipe::find($id);
+
+        return view('recipes.single-recipe', compact('recipe'));
     }
 
     /**
@@ -81,5 +111,12 @@ class RecipeController extends Controller
     public function destroy(Recipe $recipe)
     {
         //
+    }
+
+    public function newesResipes()
+    {
+        $newest = Recipe::orderBy('created_at','desc')->take(4)->get();
+
+        return view(('home.index'), compact('newest'));
     }
 }

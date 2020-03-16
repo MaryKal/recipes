@@ -110,8 +110,8 @@ ul>li{
 
 /* =============================select/input============================== */
 
-.select-style-user select{
-    /* border-radius: 0; */
+/* .select-style-user select{
+    border-radius: 0;
     background: transparent;
     height: 40px;
     padding: 5px;
@@ -121,7 +121,7 @@ ul>li{
     -webkit-appearance: none;
     font-size: 13px;
 
-    /* width: auto; */
+
 }
 
 .select-style-categories{
@@ -137,6 +137,36 @@ ul>li{
     -webkit-appearance: none;
     width: auto;
 
+} */
+.mainmenubtn {
+    background-color: red;
+    color: white;
+    border: none;
+    cursor: pointer;
+    padding:20px;
+}
+
+.mainmenubtn:hover {
+    background-color: red;
+    }
+    
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+.dropdown-child {
+    display: none;
+    background-color: black;
+    min-width: 200px;
+}
+.dropdown-child a {
+    color: white;
+    padding: 20px;
+    text-decoration: none;
+    display: block;
+}
+.dropdown:hover .dropdown-child {
+    display: block;
 }
 
 .search-input{

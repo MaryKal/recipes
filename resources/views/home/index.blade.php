@@ -8,104 +8,31 @@
     <h2 class="center">Popular categories</h2>
 
     <div class="popular-categories">
+        @foreach($categories as $category)
         <div>
-            <h4>Lorem, ipsum.</h4>
-            <p>Lorem ipsum dolor sit amet.</p>
+            <h4><a href="categories/{{$category->id}}">{{$category->name}}</a></h4>
             <img src="" alt="">
         </div>
-        <div>
-            <h4>Lorem, ipsum.</h4>
-            <p>Lorem ipsum dolor sit amet.</p>
-            <img src="" alt="">
-        </div>
-        <div>
-            <h4>Lorem, ipsum.</h4>
-            <p>Lorem ipsum dolor sit amet.</p>
-            <img src="" alt="">
-        </div>
-        <div>
-            <h4>Lorem, ipsum.</h4>
-            <p></p>
-            <img src="" alt="">
-        </div>
-        <div>
-            <h4>Lorem, ipsum.</h4>
-            <p>Lorem ipsum dolor sit amet.</p>
-            <img src="" alt="">
-        </div>
-        <div>
-            <h4>Lorem, ipsum.</h4>
-            <p>Lorem ipsum dolor sit amet.</p>
-            <img src="" alt="">
-        </div>
-        <div>
-            <h4>Lorem, ipsum.</h4>
-            <p>Lorem ipsum dolor sit amet.</p>
-            <img src="" alt="">
-        </div>
-        <div>
-            <h4>Lorem, ipsum.</h4>
-            <p>Lorem ipsum dolor sit amet.</p>
-            <img src="" alt="">
-        </div>
-        <div>
-            <h4>Lorem, ipsum.</h4>
-            <p>Lorem ipsum dolor sit amet.</p>
-            <img src="" alt="">
-        </div>
+        @endforeach
+
+
     </div>
     <div class="center">
-        <button class="all-categories-button">All categories</button>
+        <a href="/categories" class="all-categories-button">All categories</a>
     </div>
 </div>
 <div>
     <h2 class="center">Newest recipes</h2>
     <div class="newest-recipes">
-
+        @foreach($recipes as $recipe)
         <div>
-            <h3>Lorem, ipsum.</h3>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit, veniam.</p>
+            <h3><a href="recipes/{{$recipe->id}}">{{$recipe->name}}</a></h3>
+            <p>{{$recipe->describe}}</p>
         </div>
-        <div>
-            <h3>Lorem, ipsum.</h3>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit, veniam.</p>
-        </div>
-        <div>
-            <h3>Lorem, ipsum.</h3>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit, veniam.</p>
-        </div>
-        <div>
-            <h3>Lorem, ipsum.</h3>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit, veniam.</p>
-        </div>
+        @endforeach
     </div>
     <div class="center">
-        <button class="newest-recipes-button">View all</button>
+        <a href="recipes/" class="newest-recipes-button">View all recipes</a>
     </div>
 </div>
-
-<div class="popular-recipes">
-    <div>
-        <div>
-            <img src="" alt="">
-            <h4></h4>
-            <p></p>
-        </div>
-        <div>
-            <img src="" alt="">
-            <h4></h4>
-            <p></p>
-        </div>
-        <div>
-            <img src="" alt="">
-            <h4></h4>
-            <p></p>
-        </div>
-        <div>
-            <img src="" alt="">
-            <h4></h4>
-            <p></p>
-        </div>
-    </div>
-</div>    
 @endsection

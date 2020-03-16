@@ -37,12 +37,18 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
-<<<<<<< HEAD
-    // protected function authenticated() {
-    //     if (\Auth::user()->isAdmin()) {
-    //         return redirect('/admin');
-    //     }
+    protected function authenticated() {
+        if (\Auth::user()->isAdmin()) {
+
+            return redirect('/admin');
+
+        }else if(\Auth::user()->isUser()){
+
+            return redirect('/user/profile');
+
+        }else{
+            return redirect('/home');
+        }
     
-=======
->>>>>>> 506a5db607f956fd2cbc755da6cba6ae68dd489e
+}
 }
