@@ -42,13 +42,14 @@ class LoginController extends Controller
 
             return redirect('/admin');
 
-        }else if(\Auth::user()->isUser()){
+        // }else if(\Auth::user()->isUser()){
 
-            return redirect('/user/profile');
+        //     return redirect('/user/profile');
 
-        }else{
-            return redirect('/home');
         }
+        // else{
+        //     return redirect('/home');
+        // }
     
 }
 }

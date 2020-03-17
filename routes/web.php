@@ -31,7 +31,7 @@ Route::group([
             ],function(){
 
                 Route::get('/', 'AdminController@index');
-                // Route::resource('/categories', 'CategoryController');
+                Route::resource('/categories', 'CategoryController');
                 // Route::resource('/products', 'ProductController');
 
 

@@ -40,13 +40,10 @@ class HomeController extends Controller
      */
     public function index()
     {
-        // $title = 'Recipes';
-        // $subTitle = '<em>Recipes</em>';
-        // $newestRecipes = Recipe::orderBy('id', 'desc')->take(4)->get();
+        
        $recipes = $this->newestRecipes();
        $categories = $this->popularCategories();
-    //    $createRecipe = $this->create();
-        // dd($recipes);
+ 
         return view('home.index', compact('recipes','categories'));
 
     }
@@ -64,12 +61,5 @@ class HomeController extends Controller
         return $popularCategories;
 
     }
-    public function create()
-    {
-        // $categories = Category::all();
-        $recipe = new Recipe();
-        $recipes = Recipe::all('id','name')->pluck('name','id');
-        // dd($recipes); 
-        return view('user.add', compact('recipe','recipes'));
-    }
+    
 }
