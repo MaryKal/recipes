@@ -3,10 +3,13 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Shema;
 use Illuminate\Contracts\Events\Dispatcher;
 use JeroenNoten\LaravelAdminLte\Events\BuildingMenu;
 use App\Category;
 use App\Recipe;
+use App\User;
+use App\Product;
 use View;
 
 class AppServiceProvider extends ServiceProvider
@@ -30,6 +33,12 @@ class AppServiceProvider extends ServiceProvider
     {
         View::share('categories', Category::all());
         View::share('recipes', Recipe::all());
+        View::share('users', User::all());
+        View::share('products', Product::all());
+
+        // Shema::defaultStringLength(191);
+        
+
 
         $events->listen(BuildingMenu::class, function (BuildingMenu $event) {
             $event->menu->add('ADMIN PANEL');
@@ -51,7 +60,7 @@ class AppServiceProvider extends ServiceProvider
             ],
             [
                 'text' => 'Users',
-                'url' => '#',
+                'url' => 'admin/users',
                 
             ],
             [
@@ -60,12 +69,12 @@ class AppServiceProvider extends ServiceProvider
                 'submenu' =>[
                     [
                         'text' => 'All recipes',
-                        'url' => '#',
+                        'url' => 'admin/recipes',
                         // 'label' => Category::all()->count(),
                     ],
                     [
                     'text' => 'Create recipe',
-                    'url' => '#',
+                    'url' => 'admin/recipes/create',
                     ]
                 ]             
             ],

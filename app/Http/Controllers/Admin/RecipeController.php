@@ -1,13 +1,15 @@
 <?php
 
-namespace App\Http\Controllers;
-use App\Http\Controllers\Auth;
-use App\Http\Controllers\DB;
-use App\Category;
+namespace App\Http\Controllers\Admin;
+
 use App\Recipe;
-use App\Product;
-use App\Comment;
 use Illuminate\Http\Request;
+use App\Category;
+use App\User;
+use App\RecipeUser;
+use App\Comment;
+use App\Http\Controllers\Controller;
+
 
 class RecipeController extends Controller
 {
@@ -16,13 +18,29 @@ class RecipeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($id = null)
     {
         $recipes = Recipe::all();
-        
-        // dd($recipes);
+        // $users = Recipe::find()->users;
+        // $rec= RecipeUser::find(1)->user_id;
+        // $users = User::all()->find($id);
+        // // $us = $users->id;
+        // $userRecipes = RecipeUser::where('user_id',$users)->first()->recipe_id;
+        // $rec = RecipeUser::find($userRecipes)->recipe;
+      
 
-        return view('recipes.all-recipes', compact('recipes'));
+        // $us = RecipeUser::find($users->id);
+        // $rec = $recipes->id;
+        // $user = auth()->user();
+        // $us = $user->id;
+        // // $recipes = RecipeUser::find($user->id);
+        // $rec = RecipeUser::where('user_id',$us)->first()->recipe_id;
+        // $recipes = RecipeUser::find($rec)->recipe;
+
+     
+        // dd($rec);
+
+        return view('admin.recipes.index', compact('recipes'));
     }
 
     /**
@@ -34,9 +52,10 @@ class RecipeController extends Controller
     {
         $recipe = new Recipe();
         $recipes = Category::all('id','name')->pluck('name','id');
-        $products = Product::all();
 
-        return view('recipes.create', compact('recipe','recipes'));
+        // dd($categories);
+
+        return view('admin.recipes.create', compact('recipe','recipes'));
     }
 
     /**
@@ -47,8 +66,6 @@ class RecipeController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all());
-
         $request->validate([
             'name' => 'required|max:100|min:3',
             'describe' => 'required|min:3',
@@ -60,60 +77,55 @@ class RecipeController extends Controller
 
         ]);
 
-        $user = auth()->user()->id;
+        // $user = auth()->user()->id;
         $recipe = new Recipe;
         $recipe->name = $request->name;
 
         $recipe->describe = $request->describe;
         $recipe->category_id = $request->category_id;
-        $recipe->user_id = $user;
+        $recipe->user_id = 'admin';
         $recipe->slug = $request->slug;
         // dd($request->all());
 
 
         $recipe->save();
-        return redirect('/user/index');
-
+        return redirect('admin/recipes/index');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Recipe  $recipe
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
+        // $recipe = Recipe::find($id);
         $recipe = Recipe::where('id', $id)->first();
         // dd($recipe);
 
-        return view('recipes.single-recipe', compact('recipe'));
+        return view('admin.recipes.edit', compact('recipe'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Recipe  $recipe
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Recipe $recipe)
     {
-        $recipe = Recipe::find($id);
-        $recipes = Category::all('id','name')->pluck('name','id');
-
-        // dd($category);
-
-        return view('recipes.edit', compact('recipe','recipes'));
+        //
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Recipe  $recipe
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Recipe $recipe)
     {
         //
     }
@@ -121,32 +133,18 @@ class RecipeController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Recipe  $recipe
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Recipe $recipe)
     {
         //
     }
-    
-   
-    // public function autocomplete(Request $request){
 
-    //     $product = $request->get('product');
+    public function newesResipes()
+    {
+        $newest = Recipe::orderBy('created_at','desc')->take(4)->get();
 
-    //     $results = array();
-        
-    //     $queries = \DB::table('products')
-    //         ->where('name', 'LIKE', '%'.$product.'%')
-    //         ->get();
-        
-    //     foreach ($queries as $query)
-    //     {
-    //         $results[] = [ 'id' => $query->id, 'product' => $query->name ];
-    //     }
-    //     // dd($results);
-
-    // return view('recipes.create', compact( response()->json($results)));
-    // }
-    
+        return view(('home.index'), compact('newest'));
+    }
 }

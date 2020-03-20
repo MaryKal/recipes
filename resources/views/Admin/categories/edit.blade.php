@@ -16,7 +16,7 @@
 @endif
 
 
-{!!Form::model($category, ['route'=>['categories.edit', $category->id],'method'=>'put'
+{!!Form::model($category, ['route'=>['categories.update', $category->id],'method'=>'put'
 
 ])!!}
 

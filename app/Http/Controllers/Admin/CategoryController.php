@@ -92,15 +92,20 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
+       
+
+        // dd($id);
+
         $request->validate([
             'name' => 'required|unique:categories,name, id' ,
-            // 'img' => 'required',
+            // 'img' => '',
             'slug' => 'sometimes|unique:categories,slug, id' ,
         ]);
 
         $category = Category::find($id)->update($request->all());
-
-        dd($category);
+        
+        // dd($category);
+        // $category->save();
 
         return redirect('admin\categories')->with('success', 'Cat with name: ' . $request->name . ' added!');
 

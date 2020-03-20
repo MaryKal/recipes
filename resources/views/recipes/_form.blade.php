@@ -1,17 +1,25 @@
-@extends('layouts.full-width')
 @csrf
 
-<input type="text" class="" name="name" value="{{$recipes->title}}">
+<input type="text" class="recipe-name" name="name" value="{{$recipe->name}}">
 
-<select name="category">
+
+
+<div class="form-group">
+    <textarea class="" name="describe">
+    {{$recipe->describe}}
+    </textarea>
+</div>
+
+<input type="hidden" name="slug" id="slug" value="{{$recipe->name}}">
+
+<select name="category_id">
     @foreach ($categories as $item)
     <!-- <option value="{{$item->id}}">{{$item->name}}</option> -->
     <option value="{{$item->id}}">{{$item->name}}</option>
     @endforeach
 </select>
 
-<div class="form-group">
-    <textarea class="" name="content">
-    {{$recipes->describe}}
-    </textarea>
-</div>
+
+
+
+<button class="btn btn-primary">Send</button>

@@ -25,14 +25,14 @@ return [
      * List of disk names that you want to use
      * (from config/filesystems)
      */
-    'diskList' => ['images', 'public'],
+    'diskList' => ['public','images'],
 
     /**
      * Default disk for left manager
      *
      * null - auto select the first disk in the disk list
      */
-    'leftDisk' => null,
+    'leftDisk' => 'images',
 
     /**
      * Default disk for right manager
@@ -46,7 +46,7 @@ return [
      *
      * null - root directory
      */
-    'leftPath' => null,
+    'leftPath' => 'public/images',
 
     /**
      * Default path for right manager

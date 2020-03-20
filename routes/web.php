@@ -18,6 +18,23 @@ Route::get('/', 'HomeController@index');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/categories', 'HomeController@categoriesList');
+Route::get('/categories/{id}', 'HomeController@singleCategory');
+// Route::get('/recipes/{id}', 'UserController@getRecipes');
+Route::get('/user', 'UserController@getProfile');
+Route::get('/user', 'UserController@userInfo');
+// Route::get('/user', 'UserController@userInfo');
+
+// Route::get('/user/{id}', [
+//     'uses' => 'UserController@getProfile',
+//     'as' => 'user.index',
+//     'middleware' => ['auth'],
+//     ]);
+
+    
+
+
+
 
 
 Route::group([
@@ -32,14 +49,19 @@ Route::group([
 
                 Route::get('/', 'AdminController@index');
                 Route::resource('/categories', 'CategoryController');
-                // Route::resource('/products', 'ProductController');
+                Route::resource('/users', 'UserController');
+                Route::resource('/recipes', 'RecipeController');
 
 
             });
 
 
-Route::resource('/categories', 'CategoryController');
+// Route::resource('/categories', 'CategoryController');
 Route::resource('/recipes', 'RecipeController');
+// Route::get('/recipes/create', 'RecipeController@autocomplete');
+// Route::get('autocomplete', 'RecipeController@autocomplete')->name('autocomplete');
+
+// Route::get('recipes/{id}', 'RecipeController@show');
 Route::resource('/products', 'ProductController');
 Route::resource('/home', 'HomeController');
 
