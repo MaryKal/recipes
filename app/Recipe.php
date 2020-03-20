@@ -13,18 +13,24 @@ class Recipe extends Model
         'describe',
         'image',
         'likes',
+        'user_id',
+        'category_id'
     ];
     public function categories()
     {
-        return $this->belongsToMany('App\Category','recipes_categories','recipe_id','category_id');
+        return $this->hasOne('App\Recipe', 'category_id', 'id');
     }
     public function users()
     {
-        return $this->belongsToMany('App\User','recipes_users','recipe_id','user_id');
+        return $this->hasOne('App\User');
     }
     public function products()
     {
         return $this->belongsToMany('App\Product','recipes_products','recipe_id','product_id');
+    }
+    public function setSlugAttribute($value)
+    {
+        $this->attributes['slug'] = $value ? \Str::slug($value, '-') : \Str::slug($this->attributes['name'],'-');
     }
    
 }

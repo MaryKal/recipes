@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 
+use App\Http\Controllers\Auth;
 class AdminMiddleware
 {
     /**
@@ -19,6 +20,10 @@ class AdminMiddleware
         if( !\Auth::user()->isAdmin()){
             return redirect('/');
         }
-        return $next($request);
+        // else if(\Auth::user()->isUser()){
+
+        //     return redirect('/user/index');
+        // }
+        
     }
 }

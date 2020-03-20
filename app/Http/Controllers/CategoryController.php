@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Category;
 use Illuminate\Http\Request;
+use App\Category;
 
 class CategoryController extends Controller
 {
@@ -15,9 +15,9 @@ class CategoryController extends Controller
     public function index()
     {
         $categories = Category::all();
-        
+    
         // dd($categories);
-
+    
         return view('categories.all-categories', compact('categories'));
     }
 
@@ -45,30 +45,29 @@ class CategoryController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Category  $category
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
         $category = Category::find($id);
 
-        // $categories = Category::all();
-         $cat = Category::where('id', $id)->first()->id;
-         $recipes = Category::find($cat)->recipe;
+    // $categories = Category::all();
+     $cat = Category::where('id', $id)->first()->id;
+     $recipes = Category::find($cat)->recipe;
 
-        // dd($category);
+    // dd($category);
 
-        return view('categories.single-category', compact('category','recipes'));
-       
+    return view('categories.single-category', compact('category','recipes'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Category  $category
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Category $category)
+    public function edit($id)
     {
         //
     }
@@ -77,10 +76,10 @@ class CategoryController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Category  $category
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
+    public function update(Request $request, $id)
     {
         //
     }
@@ -88,13 +87,11 @@ class CategoryController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Category  $category
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category)
+    public function destroy($id)
     {
         //
     }
-
-    
 }

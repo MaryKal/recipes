@@ -11,9 +11,15 @@ header {
     width: 100%;
     background-color: #C4C4C4;
 }
+nav{
+    background-color: #C4C4C4;
+
+}
 .navigation{
     display: flex;
     justify-content: space-around;
+    /* background-color: #C4C4C4; */
+
     /* background-color: #C4C4C4; */
 }
 
@@ -105,39 +111,11 @@ ul>li{
 .footer{
     height: 150px;
     background-color: #E2E2E2;
-
+    margin-bottom: 0;
 }
 
 /* =============================select/input============================== */
 
-/* .select-style-user select{
-    border-radius: 0;
-    background: transparent;
-    height: 40px;
-    padding: 5px;
-    border: none;
-    font-size: 16px;
-    line-height: 1;
-    -webkit-appearance: none;
-    font-size: 13px;
-
-
-}
-
-.select-style-categories{
-    border-radius: 0;
-    background: transparent;
-    height: 44px;
-    padding: 5px;
-    margin: 5px;
-    border: 0;
-    background-color:  #C4C4C4;
-    font-size: 13px;
-    line-height: 1;
-    -webkit-appearance: none;
-    width: auto;
-
-} */
 .mainmenubtn {
     background-color: red;
     color: white;
@@ -175,4 +153,38 @@ ul>li{
     padding: 5px;
     border: 0;
     font-size: 16px;
+}
+
+/* =============================single-recipe page============================== */
+.flex-items{
+    display: flex;
+    justify-content: space-between;
+
+}
+.recipe-images{
+    border: 1px solid black;
+    height: 200px;
+    width: 40%;
+}
+.recipe-items{
+    border: 1px solid black;
+    min-height: 200px;
+    width: 40%;
+}
+.recipe-describe{
+    display: flex;
+    justify-content: space-around;
+}
+.author-info{
+    display: flex;
+    justify-content: space-between;
+
+}
+.author-image{
+    height: 50px;
+    min-width: 40px;
+}
+
+.ingridient-ul{
+    /* display: flex; */
 }

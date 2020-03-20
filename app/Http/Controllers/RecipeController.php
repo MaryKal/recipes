@@ -1,12 +1,13 @@
 <?php
 
 namespace App\Http\Controllers;
-
-use App\Recipe;
-use Illuminate\Http\Request;
+use App\Http\Controllers\Auth;
+use App\Http\Controllers\DB;
 use App\Category;
-use App\Resipe;
+use App\Recipe;
+use App\Product;
 use App\Comment;
+use Illuminate\Http\Request;
 
 class RecipeController extends Controller
 {
@@ -19,7 +20,7 @@ class RecipeController extends Controller
     {
         $recipes = Recipe::all();
         
-        // dd($categories);
+        // dd($recipes);
 
         return view('recipes.all-recipes', compact('recipes'));
     }
@@ -31,11 +32,11 @@ class RecipeController extends Controller
      */
     public function create()
     {
-        // $categories = Category::all();
         $recipe = new Recipe();
-        $recipes = Recipe::all('id','name')->pluck('name','id');
-        dd($recipes); 
-        return view('user.add', compact('recipe','resipes'));
+        $recipes = Category::all('id','name')->pluck('name','id');
+        $products = Product::all();
+
+        return view('recipes.create', compact('recipe','recipes'));
     }
 
     /**
@@ -46,35 +47,45 @@ class RecipeController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->all());
+
         $request->validate([
             'name' => 'required|max:100|min:3',
             'describe' => 'required|min:3',
-            'category' => 'required',
-            'img' =>'image|mimes:jpeg,png,jpg,gif,svg:max:2048',
+            'category_id' => 'required',
+            'user_id' => '',
+            'slug' => '',
+
+            // 'img' =>'image|mimes:jpeg,png,jpg,gif,svg:max:2048',
 
         ]);
-        $recipe = new Recipe();
-        //в модели все столбцы таблицы записываются в свойства
-        
-        $recipe->name = $request->title;
+
+        $user = auth()->user()->id;
+        $recipe = new Recipe;
+        $recipe->name = $request->name;
+
         $recipe->describe = $request->describe;
-        $recipe->category_id = $request->category;
+        $recipe->category_id = $request->category_id;
+        $recipe->user_id = $user;
+        $recipe->slug = $request->slug;
+        // dd($request->all());
 
-        
+
         $recipe->save();
+        return redirect('/user/index');
 
-        return redirect('recipes.all-resipes')->with('success', 'Your recipe added successfully');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Recipe  $recipe
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        $recipe = Recipe::find($id);
+        $recipe = Recipe::where('id', $id)->first();
+        // dd($recipe);
 
         return view('recipes.single-recipe', compact('recipe'));
     }
@@ -82,22 +93,27 @@ class RecipeController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Recipe  $recipe
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Recipe $recipe)
+    public function edit($id)
     {
-        //
+        $recipe = Recipe::find($id);
+        $recipes = Category::all('id','name')->pluck('name','id');
+
+        // dd($category);
+
+        return view('recipes.edit', compact('recipe','recipes'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Recipe  $recipe
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Recipe $recipe)
+    public function update(Request $request, $id)
     {
         //
     }
@@ -105,18 +121,32 @@ class RecipeController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Recipe  $recipe
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Recipe $recipe)
+    public function destroy($id)
     {
         //
     }
+    
+   
+    // public function autocomplete(Request $request){
 
-    public function newesResipes()
-    {
-        $newest = Recipe::orderBy('created_at','desc')->take(4)->get();
+    //     $product = $request->get('product');
 
-        return view(('home.index'), compact('newest'));
-    }
+    //     $results = array();
+        
+    //     $queries = \DB::table('products')
+    //         ->where('name', 'LIKE', '%'.$product.'%')
+    //         ->get();
+        
+    //     foreach ($queries as $query)
+    //     {
+    //         $results[] = [ 'id' => $query->id, 'product' => $query->name ];
+    //     }
+    //     // dd($results);
+
+    // return view('recipes.create', compact( response()->json($results)));
+    // }
+    
 }

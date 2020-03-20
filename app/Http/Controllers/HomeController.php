@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Recipe;
 use App\Category;
+use app\User;
 
 
 class HomeController extends Controller
@@ -29,9 +30,9 @@ class HomeController extends Controller
     // {
     //     return view('home');
     // }
-    
-        // $this->middleware('auth');
-    
+
+    // $this->middleware('auth');
+
 
     /**
      * Show the application dashboard.
@@ -40,36 +41,45 @@ class HomeController extends Controller
      */
     public function index()
     {
-        // $title = 'Recipes';
-        // $subTitle = '<em>Recipes</em>';
-        // $newestRecipes = Recipe::orderBy('id', 'desc')->take(4)->get();
-       $recipes = $this->newestRecipes();
-       $categories = $this->popularCategories();
-    //    $createRecipe = $this->create();
-        // dd($recipes);
-        return view('home.index', compact('recipes','categories'));
+        // $categoriesList = $this->categoriesList();
+        // $singleCategory = $this->singleCategory($id);
+        $recipes = $this->newestRecipes();
+        $categories = $this->popularCategories();
+        // $user = $this->getProfile();
+        // $user = $this->userProfile($id);
 
+        //    $singleRecipe = $this->singleRecipe();
+
+        return view('home.index', compact('recipes', 'categories'));
     }
     public function newestRecipes()
     {
         $newestRecipes = Recipe::orderBy('id', 'desc')->take(4)->get();
 
         return $newestRecipes;
-
     }
     public function popularCategories()
     {
-        $popularCategories = Category::orderBy('id', 'desc')->take(9)->get();//добавить те, в которых больше всего рецептов
+        $popularCategories = Category::orderBy('id', 'desc')->take(9)->get(); //добавить те, в которых больше всего рецептов
 
         return $popularCategories;
-
     }
-    public function create()
+    public function categoriesList()
     {
-        // $categories = Category::all();
-        $recipe = new Recipe();
-        $recipes = Recipe::all('id','name')->pluck('name','id');
-        // dd($recipes); 
-        return view('user.add', compact('recipe','recipes'));
+        $categories = Category::all();
+        // dd($categories);
+
+        return view('categories.all-categories', compact('categories'));
     }
+    public function singleCategory($id)
+    {
+        $category = Category::find($id);
+
+        $cat = Category::where('id', $id)->first()->id;
+        $recipes = Category::find($cat)->recipe;
+
+        return view('categories.single-category', compact('category', 'recipes'));
+    }
+
+
 }
