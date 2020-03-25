@@ -27,6 +27,7 @@
         @foreach($recipes as $recipe)
         <div>
             <h3><a href="recipes/{{$recipe->id}}">{{$recipe->name}}</a></h3>
+            <img src="{{$recipe->image}}" alt="" style="width: 100px; height:50px;">
             <p>{{$recipe->describe}}</p>
         </div>
         @endforeach

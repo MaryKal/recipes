@@ -1,3 +1,7 @@
+@extends('layouts.full-width')
+
+@section('content')
+
 <table class="table">
         <thead>
             <th>#</th>
@@ -14,3 +18,5 @@
 
             </tr>
         @endforeach
+
+@endsection

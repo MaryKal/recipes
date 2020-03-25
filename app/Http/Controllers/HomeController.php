@@ -45,6 +45,7 @@ class HomeController extends Controller
         // $singleCategory = $this->singleCategory($id);
         $recipes = $this->newestRecipes();
         $categories = $this->popularCategories();
+       
         // $user = $this->getProfile();
         // $user = $this->userProfile($id);
 
@@ -74,11 +75,20 @@ class HomeController extends Controller
     public function singleCategory($id)
     {
         $category = Category::find($id);
+        // dd($category);
+        // $rec = $category->recipe;
 
-        $cat = Category::where('id', $id)->first()->id;
-        $recipes = Category::find($cat)->recipe;
+        $recipes = Recipe::where('category_id', $id)->get();
+        // $recipe = $recipes->recipe;
+        // $recipe = Category::where('category_id','=' ,5)->get();
+        // dd($recipe);
+        // dd($category);
+      
 
-        return view('categories.single-category', compact('category', 'recipes'));
+        // $rec = Recipe::find($recipes)->recipe;
+        // dd($recipes);
+
+        return view('categories.single-category', compact('recipes','category'));
     }
 
 

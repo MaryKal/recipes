@@ -6,6 +6,7 @@ use App\Http\Controllers\DB;
 use App\Category;
 use App\Recipe;
 use App\Product;
+use App\User;
 use App\Comment;
 use Illuminate\Http\Request;
 
@@ -84,10 +85,22 @@ class RecipeController extends Controller
      */
     public function show($id)
     {
-        $recipe = Recipe::where('id', $id)->first();
-        // dd($recipe);
 
-        return view('recipes.single-recipe', compact('recipe'));
+        // $qw = Recipe::find(1)->users;
+        // dd($qw);
+        
+        $recipe = Recipe::where('id', $id)->first();
+        // $user = $recipe->user_id;
+        // dd($user);
+        // $us = User::where('id', $user)->first();
+        $rec = Recipe::where('user_id',$recipe->user_id)->get()->count();
+     
+
+        return view('recipes.single-recipe', compact('recipe','rec'));
+
+    //     $user = auth()->user()->id;
+    //    $recipes = User::find($user)->recipe;        
+
     }
 
     /**

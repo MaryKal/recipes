@@ -17,26 +17,6 @@ Route::get('/', 'HomeController@index');
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/categories', 'HomeController@categoriesList');
-Route::get('/categories/{id}', 'HomeController@singleCategory');
-// Route::get('/recipes/{id}', 'UserController@getRecipes');
-Route::get('/user', 'UserController@getProfile');
-Route::get('/user', 'UserController@userInfo');
-// Route::get('/user', 'UserController@userInfo');
-
-// Route::get('/user/{id}', [
-//     'uses' => 'UserController@getProfile',
-//     'as' => 'user.index',
-//     'middleware' => ['auth'],
-//     ]);
-
-    
-
-
-
-
-
 Route::group([
     'prefix'=>'admin',
     'namespace'=>'Admin',
@@ -55,8 +35,20 @@ Route::group([
 
             });
 
+Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/categories', 'HomeController@categoriesList');
+Route::get('/categories/{id}', 'HomeController@singleCategory');
+// Route::get('/recipes/{id}', 'UserController@getRecipes');
+Route::get('/user', 'UserController@getProfile')->middleware('auth')->name('profile');
+// Route::get('/user', 'UserController@userInfo');
 
-// Route::resource('/categories', 'CategoryController');
+// Route::get('/user/{id}', [
+//     'uses' => 'UserController@getProfile',
+//     'as' => 'user.index',
+//     'middleware' => ['auth'],
+//     ]);
+
+
 Route::resource('/recipes', 'RecipeController');
 // Route::get('/recipes/create', 'RecipeController@autocomplete');
 // Route::get('autocomplete', 'RecipeController@autocomplete')->name('autocomplete');

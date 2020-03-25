@@ -22,7 +22,7 @@
             <tr>
             <td>{{$loop->iteration}}</td>
             <td><a href="recipes/{{$recipe->id}}/edit">{{$recipe->name}}</a></td>
-            <td>{{$recipe->user_id}}</td>
+            <td>{{$recipe->users->name}}</td>
             
             <td>{{$recipe->describe}}</td>
             <td>{{$recipe->likes}}</td>

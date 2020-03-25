@@ -1,15 +1,11 @@
-<!-- CSRF Token -->
-<meta name="csrf-token" content="{{ csrf_token() }}">
 
 <div class="form-group">
     <input type="text" class="form-control " name="name" value="{{$recipe->name}}">
 </div>
 
-<div class="form-group">
-    <textarea class="" name="describe" id="describe">
+<textarea class="" name="describe" id="describe">
     {{$recipe->describe}}
-    </textarea>
-</div>
+</textarea>
 
 <div class="form-group">
     <select class="" name="category_id" id="category_id">
@@ -26,67 +22,36 @@
     <input type="text" class="form-control " name="slug">
 </div>
 
-
-<div class="input-group">
-    <input type="text" id="image_label" class="form-control" name="image" aria-label="Image" aria-describedby="button-image">
-    <div class="input-group-append">
-        <button class="btn btn-outline-secondary" type="button" id="button-image">Select</button>
+<div class="form-group">
+    {!! Form::label('image_label', 'Choose image:') !!}
+    <div class="input-group">
+        <input type="text" id="image_label" class="form-control" name="image" aria-label="Image" aria-describedby="button-image" value="{{$recipe->image}}">
+        <div class="input-group-append">
+            <button class="btn btn-outline-secondary" type="button" id="button-image">Select</button>
+        </div>
     </div>
 </div>
 
+<button class="btn btn-primary" id="" type="submit">Сохранить</button>
 
 
-
-<button class="btn btn-primary">Сохранить</button>
-@endsection
 
 @section('js')
-<!-- <script src="https://cdn.ckeditor.com/4.11.2/standard/ckeditor.js"></script> -->
+<script src="{{ asset('vendor/file-manager/js/file-manager.js') }}"></script>
+
+<script src="https://cdn.ckeditor.com/4.13.1/standard/ckeditor.js"></script>
 <script>
-    CKEDITOR.replace('editor-id', {
-        filebrowserImageBrowseUrl: '/file-manager/ckeditor'
-    });
-</script>
-<script src='https://cloud.tinymce.com/stable/tinymce.min.js'></script>
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        tinymce.init({
-            selector: '#describe',
-            plugins: [
-                'advlist autolink lists link image charmap print preview hr anchor pagebreak',
-                'searchreplace wordcount visualblocks visualchars code fullscreen',
-                'insertdatetime media nonbreaking save table contextmenu directionality',
-                'emoticons template paste textcolor colorpicker textpattern',
-            ],
-            toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image media',
-            relative_urls: false,
-            file_browser_callback: function(field_name, url, type, win) {
-                tinyMCE.activeEditor.windowManager.open({
-                    file: '/file-manager/tinymce',
-                    title: 'Laravel File Manager',
-                    width: window.innerWidth * 0.9,
-                    height: window.innerHeight * 0.9,
-                    resizable: 'yes',
-                    close_previous: 'no',
-                }, {
-                    setUrl: function(url) {
-                        win.document.getElementById(field_name).value = url;
-                    },
-                });
-            },
+    if (document.querySelector('#describe')) {
+        CKEDITOR.replace('describe', {
+            filebrowserImageBrowseUrl: '/file-manager/ckeditor'
         });
-    });
-
-
-
-
+    };
 
     document.addEventListener("DOMContentLoaded", function() {
-
         document.getElementById('button-image').addEventListener('click', (event) => {
             event.preventDefault();
 
-            window.open('/file-manager/fm-button', 'fm', 'width=1400,height=800');
+            window.open('/file-manager/fm-button', 'fm', 'width=900,height=600');
         });
     });
 
@@ -95,5 +60,12 @@
         document.getElementById('image_label').value = $url;
     }
 </script>
+@endsection
 
+
+
+@section('css')
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+<link rel="stylesheet" href="{{ asset('vendor/file-manager/css/file-manager.css') }}">
 @endsection

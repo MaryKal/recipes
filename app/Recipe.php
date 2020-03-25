@@ -18,11 +18,11 @@ class Recipe extends Model
     ];
     public function categories()
     {
-        return $this->hasOne('App\Recipe', 'category_id', 'id');
+        return $this->hasOne('App\Category', 'id','category_id');
     }
     public function users()
     {
-        return $this->hasOne('App\User');
+        return $this->hasOne('App\User','id', 'user_id');
     }
     public function products()
     {

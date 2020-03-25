@@ -8,7 +8,7 @@
 
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
-    
+
     <link rel="stylesheet" href="{{ asset('vendor/file-manager/css/file-manager.css') }}">
     <link href="{{URL::asset('css/style.css')}}" rel="stylesheet">
     <title>Recipes</title>
@@ -26,16 +26,16 @@
                         <li><a href="/categories">Categories</a></li>
                     </ul>
                 </div>
-                <div><img src="" alt="">LOGO</div>
-                <ul >
+                <div><a href="/home/"><img src="" alt="">LOGO</a></div>
+                <ul>
                     <!-- Authentication Links -->
                     @guest
-                    <li >
+                    <li>
                         <a href="{{ route('login') }}">{{ __('Login') }}</a>
                     </li>
                     @if (Route::has('register'))
-                    <li >
-                        <a  href="{{ route('register') }}">{{ __('Register') }}</a>
+                    <li>
+                        <a href="{{ route('register') }}">{{ __('Register') }}</a>
                     </li>
                     @endif
                 </ul>
@@ -44,31 +44,29 @@
                     <div class="select-style-user">
 
                         <div class="dropdown">
-                            <!-- <button class="mainmenubtn">Name of User</button> -->
-                            <a class="mainmenubtn" href="#">{{ Auth::user()->name }} </a>
-                            <div class="dropdown-child">
-                            
-                                <a href="/user" >My Profile</a>
-                                
+                            <button class="dropbtn" onclick="profileDropdown()" href="#">{{ Auth::user()->name }} </button>
+                            <div class="dropdown-content" id="profileDropdown">
+                                <a href="/user">My Profile</a>
                                 <a href="#" onclick="event.preventDefault();">My Recipes</a>
                                 <a href="{{ route('logout') }}" onclick="event.preventDefault();
                                 document.getElementById('logout-form').submit();">
-                                {{ __('Logout') }}
+                                    {{ __('Logout') }}
                                 </a>
                             </div>
                         </div>
+
                         <a href="recipes/create" class="add-recipe-button">Add recipe </a>
                     </div>
                 </div>
                 @if (Auth::user()->isAdmin())
-                        <a href="/admin">Admin panel</a>
-                        @endif
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                            @csrf
-                        </form>
-                    </div>
-                @endguest
-                </ul>
+                <a href="/admin">Admin panel</a>
+                @endif
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                    @csrf
+                </form>
+            </div>
+            @endguest
+            </ul>
             </div>
         </nav>
         <div class="search">
@@ -76,10 +74,10 @@
                 <input type="text" placeholder="Search" class="search-input">
 
                 <div class="dropdown">
-                    <button class="mainmenubtn">All categories</button>
-                    <div class="dropdown-child">
+                    <button class="dropbtn" onclick="catDropdown()">All categories</button>
+                    <div class="dropdown-content" id="catDropdown">
                         @foreach($categories as $category)
-                        <a href="/categories/{{$category->id}}">{{$category->name}}</a>
+                        <a href="/categories/{{$category->id}}" >{{$category->name}}</a>
                         @endforeach
 
                     </div>
