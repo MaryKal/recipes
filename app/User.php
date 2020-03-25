@@ -39,7 +39,7 @@ class User extends Authenticatable
 
     public function recipe()
     {
-        return $this->hasMany('App\Recipe','user_id','id');///в таюлицу с рецептом писать ser id
+        return $this->hasMany('App\Recipe','user_id', 'id');///в таюлицу с рецептом писать ser id
     }
     public function isAdmin()
     {

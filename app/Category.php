@@ -12,7 +12,7 @@ class Category extends Model
 
     public function recipe()
     {
-        return $this->belongsToMany('App\Recipe','category_id');
+        return $this->belongsToMany('App\Recipe','category_id','id');
     }
 
 }

@@ -3,14 +3,14 @@
 <a href="/home/">Back</a>
 <div class="recipe-describe flex-items">
     <div class="recipe-images">
-
+    <img src="{{$recipe->image}}" alt="" style="width: 200px; height:100px;">
     </div>
     <div class="recipe-items">
         <h4>{{$recipe->name}}</h4>
         <ul>
             <li>Сложность</li>
             <li>Время</li>
-            <li>Категория</li>
+            <li>{{$recipe->categories->name}}</li>
         </ul>
         <div class="author-info">
             <div class="flex-items">
@@ -18,9 +18,10 @@
                     <img src="" alt="">
                 </div>
                 <div class="flex-items">
-                    <div>
-                        <h3>Имя автора</h3>
-                        <p>Количество рецептов</p>
+                    <div>                 
+                    
+                       <h3><a href="/user/{{$recipe->users->id}}">{{$recipe->users->name}}</a></h3>
+                       <p>{{$rec}}</p>
                     </div>
                     <div>
                         <ul>
@@ -60,6 +61,7 @@
         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eaque, officiis.</p>
     </div>
 </div>
+
 
 
 

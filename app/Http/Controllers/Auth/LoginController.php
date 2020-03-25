@@ -44,7 +44,7 @@ class LoginController extends Controller
 
         }else if(\Auth::user()->isUser()){
 
-            return redirect('/user/index');
+            return redirect('/user');
         }
         }
         // else{

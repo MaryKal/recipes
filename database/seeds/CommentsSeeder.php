@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class RecipesCategoryTableSeeder extends Seeder
+class CommentsSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,7 +11,6 @@ class RecipesCategoryTableSeeder extends Seeder
      */
     public function run()
     {
-        // factory(App\RecipesCategory::class,
-        //         10)->create();
+        //
     }
 }

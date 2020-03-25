@@ -23,6 +23,7 @@
             <td>{{$loop->iteration}}</td>
             <td><a href="users/{{$user->id}}/edit">{{$user->name}}</a></td>
             <td>{{$user->email}}</td>
+            <td>{{$user->recipe->count()}}</td>
             
             </tr>
             @endforeach

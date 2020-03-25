@@ -1,8 +1,8 @@
 @include('layouts.header')
   
-  <section class="container">
+  <div>
     @yield('content')
-  </section>
+  </div>
 
 
   @include('layouts.footer')

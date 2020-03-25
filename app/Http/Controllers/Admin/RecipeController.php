@@ -21,24 +21,6 @@ class RecipeController extends Controller
     public function index($id = null)
     {
         $recipes = Recipe::all();
-        // $users = Recipe::find()->users;
-        // $rec= RecipeUser::find(1)->user_id;
-        // $users = User::all()->find($id);
-        // // $us = $users->id;
-        // $userRecipes = RecipeUser::where('user_id',$users)->first()->recipe_id;
-        // $rec = RecipeUser::find($userRecipes)->recipe;
-      
-
-        // $us = RecipeUser::find($users->id);
-        // $rec = $recipes->id;
-        // $user = auth()->user();
-        // $us = $user->id;
-        // // $recipes = RecipeUser::find($user->id);
-        // $rec = RecipeUser::where('user_id',$us)->first()->recipe_id;
-        // $recipes = RecipeUser::find($rec)->recipe;
-
-     
-        // dd($rec);
 
         return view('admin.recipes.index', compact('recipes'));
     }
@@ -53,7 +35,7 @@ class RecipeController extends Controller
         $recipe = new Recipe();
         $recipes = Category::all('id','name')->pluck('name','id');
 
-        // dd($categories);
+        // dd($recipes);
 
         return view('admin.recipes.create', compact('recipe','recipes'));
     }
@@ -66,16 +48,18 @@ class RecipeController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->all());
+
         $request->validate([
             'name' => 'required|max:100|min:3',
             'describe' => 'required|min:3',
             'category_id' => 'required',
             'user_id' => '',
             'slug' => '',
-
-            // 'img' =>'image|mimes:jpeg,png,jpg,gif,svg:max:2048',
+            'img' =>'image|mimes:jpeg,png,jpg,gif,svg',
 
         ]);
+        // dd($request->all());
 
         // $user = auth()->user()->id;
         $recipe = new Recipe;
@@ -83,13 +67,14 @@ class RecipeController extends Controller
 
         $recipe->describe = $request->describe;
         $recipe->category_id = $request->category_id;
-        $recipe->user_id = 'admin';
+        $recipe->user_id = '12';
         $recipe->slug = $request->slug;
+        $recipe->image = $request->image;
         // dd($request->all());
 
 
         $recipe->save();
-        return redirect('admin/recipes/index');
+        return redirect('/admin/recipes/');
     }
 
     /**
@@ -100,9 +85,11 @@ class RecipeController extends Controller
      */
     public function show($id)
     {
-        // $recipe = Recipe::find($id);
+       
+
         $recipe = Recipe::where('id', $id)->first();
-        // dd($recipe);
+        // $user = Users::where()
+        // dd($users);
 
         return view('admin.recipes.edit', compact('recipe'));
     }
@@ -141,10 +128,5 @@ class RecipeController extends Controller
         //
     }
 
-    public function newesResipes()
-    {
-        $newest = Recipe::orderBy('created_at','desc')->take(4)->get();
-
-        return view(('home.index'), compact('newest'));
-    }
+   
 }

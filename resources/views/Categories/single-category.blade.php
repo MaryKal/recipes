@@ -1,4 +1,6 @@
-<!-- @include('layouts.header') -->
+@extends('layouts.main')
+
+
 
 
 @section('content')
@@ -15,4 +17,4 @@
          <td>{{$recipe->describe}}</td></tr>
      @endforeach
  </table>
-@include('layouts.footer')
+@endsection
