@@ -19,6 +19,7 @@ class CreateRecipesTable extends Migration
             $table->string('slug',100)->unique();            
             $table->string('image')->nullable();
             $table->text('describe');
+            $table->mediumText('steps')->nullable();
             $table->integer('likes')->default(0);
 
             $table->bigInteger('user_id')->unsigned();

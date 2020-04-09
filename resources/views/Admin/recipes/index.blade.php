@@ -12,6 +12,7 @@
                 <th>#</th>
                 <th>Name</th>
                 <th>Author</th>
+                <th>Image</th>
                 <th>Describe</th>
                 <th>likes</th>
                 
@@ -23,6 +24,7 @@
             <td>{{$loop->iteration}}</td>
             <td><a href="recipes/{{$recipe->id}}/edit">{{$recipe->name}}</a></td>
             <td>{{$recipe->users->name}}</td>
+            <td ><img src="{{$recipe->image}}" alt="" style="width: 200px; height:200px;"></td>
             
             <td>{{$recipe->describe}}</td>
             <td>{{$recipe->likes}}</td>

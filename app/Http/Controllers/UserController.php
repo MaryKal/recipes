@@ -33,9 +33,9 @@ class UserController extends Controller
         // dd($user);
         // $recipes = Recipe::find($user)->recipe;
         // $recipes = User::find($user)->recipe;
-        $recipes = Recipe::where('user_id',$id)->get();
+        $recipes = Recipe::where('user_id',$user->id)->get();
 
-        dd($user);
+        // dd($user);
 
 
         return view('user.profile', compact('recipes','user'));

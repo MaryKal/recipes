@@ -20,10 +20,12 @@ class AdminMiddleware
         if( !\Auth::user()->isAdmin()){
             return redirect('/');
         }
-        // else if(\Auth::user()->isUser()){
+        // else {
 
-        //     return redirect('/user/index');
+        //     return back();
         // }
+        return $next($request);
+
         
     }
 }

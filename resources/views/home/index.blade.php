@@ -3,13 +3,13 @@
 
 @section('content')
 
-<div>
+<div class="pop-cat-wrapper">
 
-    <h2 class="center">Popular categories</h2>
+    <h2 class="center ">Popular categories</h2>
 
     <div class="popular-categories">
         @foreach($categories as $category)
-        <div>
+        <div style="background-image:url({{$category->img}});background-size:cover;">
             <h4><a href="categories/{{$category->id}}">{{$category->name}}</a></h4>
             <img src="" alt="">
         </div>
@@ -21,7 +21,7 @@
         <a href="/categories" class="all-categories-button">All categories</a>
     </div>
 </div>
-<div>
+<div class="new-rec-wrapper">
     <h2 class="center">Newest recipes</h2>
     <div class="newest-recipes">
         @foreach($recipes as $recipe)

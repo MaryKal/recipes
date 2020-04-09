@@ -5,18 +5,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css">
-
+    
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
 
     <link rel="stylesheet" href="{{ asset('vendor/file-manager/css/file-manager.css') }}">
-    <link href="{{URL::asset('css/style.css')}}" rel="stylesheet">
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <title>Recipes</title>
 </head>
 
 <body>
-
-
+<div class="wrapper">
     <header>
         <nav>
             <div class="navigation">
@@ -26,7 +25,7 @@
                         <li><a href="/categories">Categories</a></li>
                     </ul>
                 </div>
-                <div><a href="/home/"><img src="" alt="">LOGO</a></div>
+                <div><a href="/home/">LOGO</a></div>
                 <ul>
                     <!-- Authentication Links -->
                     @guest
@@ -44,7 +43,7 @@
                     <div class="select-style-user">
 
                         <div class="dropdown">
-                            <button class="dropbtn" onclick="profileDropdown()" href="#">{{ Auth::user()->name }} </button>
+                            <button class="dropbtn drop1"  >{{ Auth::user()->name }} </button>
                             <div class="dropdown-content" id="profileDropdown">
                                 <a href="/user">My Profile</a>
                                 <a href="#" onclick="event.preventDefault();">My Recipes</a>
@@ -54,8 +53,9 @@
                                 </a>
                             </div>
                         </div>
+                        
+                            <a href="recipes/create" class="add-recipe-button2">Add recipe </a>
 
-                        <a href="recipes/create" class="add-recipe-button">Add recipe </a>
                     </div>
                 </div>
                 @if (Auth::user()->isAdmin())
@@ -64,17 +64,17 @@
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                     @csrf
                 </form>
-            </div>
+            
             @endguest
-            </ul>
-            </div>
+           
+            
         </nav>
         <div class="search">
             <div class="search-items">
                 <input type="text" placeholder="Search" class="search-input">
 
                 <div class="dropdown">
-                    <button class="dropbtn" onclick="catDropdown()">All categories</button>
+                    <button class="dropbtn drop2">All categories</button>
                     <div class="dropdown-content" id="catDropdown">
                         @foreach($categories as $category)
                         <a href="/categories/{{$category->id}}" >{{$category->name}}</a>
@@ -86,3 +86,5 @@
             </div>
         </div>
     </header>
+
+    <main>

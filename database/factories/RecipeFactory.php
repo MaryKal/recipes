@@ -11,8 +11,9 @@ $factory->define(Recipe::class, function (Faker $faker) {
     return [
         'name' => \Str::random(10),
         'slug' => \Str::slug($name, '-'),
-        'image' => '123',
+        'image' => '',
         'describe' => $faker->text(200),
+        'steps' => $faker->text(200),
         'likes' => $faker->randomNumber(NULL, false),
         'user_id' => App\User::all('id')->pluck('id')->random(),
         'category_id' => App\Category::all('id')->pluck('id')->random(),

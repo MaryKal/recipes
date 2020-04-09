@@ -10,6 +10,7 @@ use App\Category;
 use App\Recipe;
 use App\User;
 use App\Product;
+use App\Comment;
 use View;
 
 class AppServiceProvider extends ServiceProvider
@@ -35,6 +36,7 @@ class AppServiceProvider extends ServiceProvider
         View::share('recipes', Recipe::all());
         View::share('users', User::all());
         View::share('products', Product::all());
+        View::share('comments', Comment::all());
 
         // Shema::defaultStringLength(191);
         

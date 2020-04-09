@@ -31,11 +31,11 @@ class CategoryController extends Controller
     public function create()
     {
         $category = new Category();
-        $categories = Category::all('id','name')->pluck('name','id');
+        // $categories = Category::all('id','name')->pluck('name','id');
 
         // dd($categories);
 
-        return view('admin.categories.create', compact('category','categories'));
+        return view('admin.categories.create', compact('category'));
     }
 
     /**
@@ -46,12 +46,26 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
+
         $request->validate([
             'name' => 'required',
-            // 'img' => 'required'
+            'img' => 'image|mimes:jpeg,png,jpg,gif,svg',
+            'slug' => '',
         ]);
 
-        Category::create($request->all());
+        $category = new Category();
+        // dd($request->all);
+
+        $category->img = $request->image;
+        $category->name = $request->name;
+        $category->slug = $request->slug;
+            dd($request->all);
+        // Category::create($request->all());
+        // Category::create($request->all());
+            // dd($request->all());
+
+        $category->save();
+
         return redirect('admin/categories');
     }
 
@@ -76,11 +90,12 @@ class CategoryController extends Controller
     public function edit($id)
     {
         $category = Category::find($id);
-        $categories = Category::all('id','name')->pluck('name','id');
+        // $categories = Category::all('id','name')->pluck('name','id');
+        // dd($category);
 
         // dd($category);
 
-        return view('admin.categories.edit', compact('category','categories'));
+        return view('admin.categories.edit', compact('category'));
     }
 
     /**
@@ -97,17 +112,25 @@ class CategoryController extends Controller
         // dd($id);
 
         $request->validate([
-            'name' => 'required|unique:categories,name, id' ,
-            // 'img' => '',
-            'slug' => 'sometimes|unique:categories,slug, id' ,
+            'name' => 'required',
+            'img' => 'image|mimes:jpeg,png,jpg,gif,svg',
+            'slug' => '',
         ]);
 
-        $category = Category::find($id)->update($request->all());
-        
-        // dd($category);
-        // $category->save();
+        // $category = Category::find($id)->update($request->all());
+        // $category->$request->all();
+        $category = Category::find($id);
+        $category->img = $request->image;
+        $category->name = $request->name;
+        $category->slug = $request->slug;
+        // // dd($request->all());
+        $category->update();
+        // $category = Category::find($id)->update($request->all());
 
-        return redirect('admin\categories')->with('success', 'Cat with name: ' . $request->name . ' added!');
+            // dd($request->all());
+        // dd($category->img);
+            // $category->update();
+        return redirect('admin\categories');
 
     }
 
