@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Comment;
+use App\Recipe;
 
 class CommentsController extends Controller
 {
@@ -34,7 +36,32 @@ class CommentsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+
+        $request->validate([
+            'comment' => 'required|max:100|min:3',
+            'user_id' => '',
+            'recipe_id' => '',
+        ]);
+        // dd($request->all());
+
+        $comments = new Comment();     //в модели все столбцы таблицы записываются в свойства
+
+        // $user = auth()->user()->id;
+        $user= \Auth::user()->id;
+
+        $comments->comment = $request->comment;
+        $comments->user_id = $request->user_id;
+        $comments->recipe_id = $request->recipe_id;
+        // dd($request->all());
+
+        // dd($user);
+        $comments->save();
+        // dd(redirect('recipes.single-recipe'));
+        
+
+
+        return back();
     }
 
     /**

@@ -61,7 +61,7 @@ class HomeController extends Controller
     }
     public function popularCategories()
     {
-        $popularCategories = Category::orderBy('id', 'desc')->take(9)->get(); //добавить те, в которых больше всего рецептов
+        $popularCategories = Category::orderBy('id', 'desc')->take(8)->get(); //добавить те, в которых больше всего рецептов
 
         return $popularCategories;
     }

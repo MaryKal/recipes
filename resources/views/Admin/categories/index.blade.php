@@ -19,7 +19,7 @@
             <tr>
             <td>{{$loop->iteration}}</td>
             <td><a href="categories/{{$item->id}}/edit">{{$item->name}}</a></td>
-            <td><img src="#" alt="" style="width:200px; height:200px;"></td>
+            <td><img src="{{$item->img}}" alt="" style="width:200px; height:100px;"></td>
             
             </tr>
             @endforeach

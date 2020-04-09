@@ -1,70 +1,92 @@
 @include('layouts.nav-panel')
 
 <a href="/home/">Back</a>
-<div class="recipe-describe flex-items">
+<div class="recipe-describe ">
     <div class="recipe-images">
-    <img src="{{$recipe->image}}" alt="" style="width: 200px; height:100px;">
+        <img src="{{$recipe->image}}" alt="" style="width: 200px; height:100px;">
     </div>
     <div class="recipe-items">
-        <h4>{{$recipe->name}}</h4>
+        <h2>{{$recipe->name}}</h2>
         <ul>
-            <li>Сложность</li>
             <li>Время</li>
-            <li>{{$recipe->categories->name}}</li>
+            <li>Количество ингр</li>
+            <li>Количество персон</li>
+            <!-- <li>{{$recipe->categories->name}}</li> -->
         </ul>
-        <div class="author-info">
-            <div class="flex-items">
+        <div>
+            <p>{{$recipe->describe}}</p>
+        </div>
+        <div class="author-info ">
+            <div class="user-info">
                 <div class="author-image">
                     <img src="" alt="">
                 </div>
-                <div class="flex-items">
-                    <div>                 
-                    
-                       <h3><a href="/user/{{$recipe->users->id}}">{{$recipe->users->name}}</a></h3>
-                       <p>{{$rec}}</p>
-                    </div>
-                    <div>
-                        <ul>
-                            <li>item 1</li>
-                            <li>item 2</li>
-                        </ul>
-                    </div>
+                <div>
+                    <h3><a href="/user/{{$recipe->users->id}}">{{$recipe->users->name}}</a></h3>
+                    <p>Всего рецептов{{$recipe->users->recipe->count()}}</p>
                 </div>
             </div>
+
+            <ul>
+                <li>{{$recipe->likes}}</li>
+
+                <li>item 2</li>
+            </ul>
         </div>
-        <div class="ingridient-ul">
-            <h3>Ингридиенты</h3>
-            <div>
-        <ul>
-            <li>Lorem.</li>
-            <li>Lorem.</li>
-            <li>Lorem.</li>
-            <li>Lorem.</li>
-            
-        </ul>
-        </div>
+    </div>
+</div>
+<div class="main-info">
+    <div class="coocking">
+        <h4>Приготовление</h4>
         <div>
+            <h4>Шаг 1</h4>
+            <p>{!! $recipe->steps !!}</p>
+        </div>
+    </div>
+    <div class="ingridients">
+        <h3>Ингридиенты</h3>
         <ul>
-                <li>Lorem.</li>
-                <li>Lorem.</li>
-                <li>Lorem.</li>
-                <li>Lorem.</li>
+            <li>Lorem, ipsum.</li>
+            <li>Lorem, ipsum.</li>
+            <li>Lorem, ipsum.</li>
+            <li>Lorem, ipsum.</li>
+            <li>Lorem, ipsum.</li>
         </ul>
-        </div>
-        </div>
     </div>
 </div>
-<div>
-    <h4>Приготовление</h4>
-    <div>
-        <h4>Шаг 1</h4>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eaque, officiis.</p>
+<div class="comments-block">
+<h5>Comments</h5>
+@if (Auth::user())
+<form action="/comments" method="post">
+    @include('comments._form')
+    <input type="hidden" name="recipe_id" value="{{$recipe->id}}">
+    <input type="hidden" name="user_id" value="{{\Auth::user()->id}}">
+
+</form>
+@else
+<p>Register or login for commenting</p>
+@endif
+
+@if ($comments)
+@foreach ($comments as $item)
+
+<div class="comment">
+    <div class="img-div">
+        <img src="" alt="">
+
     </div>
+    <div class="comment-text">
+        <h5><a href="/user/{{$recipe->users->id}}">{{$item->user->name}}</a></h5>
+        <p class="">"{!! $item->comment !!}"</p>
+        <div class="reply-link">
+            <a href="" >Reply</a>
+        </div>
+    </div>
+    
+
 </div>
 
-
-
-
-
-
+@endforeach
+@endif
+</div>
 @include('layouts.footer')

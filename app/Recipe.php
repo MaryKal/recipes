@@ -14,7 +14,8 @@ class Recipe extends Model
         'image',
         'likes',
         'user_id',
-        'category_id'
+        'category_id',
+        'steps'
     ];
     public function categories()
     {
@@ -28,9 +29,17 @@ class Recipe extends Model
     {
         return $this->belongsToMany('App\Product','recipes_products','recipe_id','product_id');
     }
+    public function comment()
+    {
+        return $this->hasMany('App\Comment','recipe_id', 'id');///в таюлицу с рецептом писать ser id
+    }
     public function setSlugAttribute($value)
     {
         $this->attributes['slug'] = $value ? \Str::slug($value, '-') : \Str::slug($this->attributes['name'],'-');
+    }
+    public function stepImages()
+    {
+        return $this->ManyToMany('App\ImageRecipe','id','recipe_id');
     }
    
 }

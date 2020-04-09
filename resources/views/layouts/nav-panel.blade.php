@@ -8,13 +8,14 @@
 
     <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"> -->
     <link rel="stylesheet" href="{{ asset('vendor/file-manager/css/file-manager.css') }}">
-
-    <link href="{{URL::asset('css/style.css')}}" rel="stylesheet">
-    <script src="{{asset('js/script.js')}}"></script>
+    <!-- <link rel="stylesheet" type="text/css" href="jquery.fancybox.min.css"> -->
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+  
     <title>Recipes</title>
 </head>
 
 <body>
+    <div class="wrapper">
     <nav>
         <div class="navigation">
             <div class="nav-links">
@@ -23,7 +24,7 @@
                     <li><a href="/categories">Categories</a></li>
                 </ul>
             </div>
-            <div><a href="/home/"><img src="" alt="">LOGO</a></div>
+            <div><a href="/home/">LOGO</a></div>
             <ul>
                 <!-- Authentication Links -->
                 @guest
@@ -41,11 +42,11 @@
                 <div class="select-style-user">
 
                     <div class="dropdown">
-                        <button class="dropbtn" onclick="profileDropdown()" href="#">{{ Auth::user()->name }} </button>
+                        <button class="dropbtn drop1"  href="#">{{ Auth::user()->name }} </button>
                         <div class="dropdown-content" id="profileDropdown">
                             <a href="/user">My Profile</a>
                             <a href="#" onclick="event.preventDefault();">My Recipes</a>
-                            <a href="{{ route('logout') }}" onclick="event.preventDefault();
+                            <a href="{{ route('logout') }}" onclick="
                                 document.getElementById('logout-form').submit();">
                                 {{ __('Logout') }}
                             </a>
@@ -63,5 +64,6 @@
         </div>
         @endguest
         </ul>
-        </div>
+       
     </nav>
+    <main class="main">

@@ -12,35 +12,37 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
 Route::get('/', 'HomeController@index');
 
 
 Auth::routes();
 
 Route::group([
-    'prefix'=>'admin',
-    'namespace'=>'Admin',
-    'middleware'=>
-        [
-            'auth',
-            'admin',    
-        ],
-            ],function(){
+    'prefix' => 'admin',
+    'namespace' => 'Admin',
+    'middleware' =>
+    [
+        'auth',
+        'admin',
+    ],
+], function () {
 
-                Route::get('/', 'AdminController@index');
-                Route::resource('/categories', 'CategoryController');
-                Route::resource('/users', 'UserController');
-                Route::resource('/recipes', 'RecipeController');
+    Route::get('/', 'AdminController@index');
+    Route::resource('/categories', 'CategoryController');
+    Route::resource('/users', 'UserController');
+    Route::resource('/recipes', 'RecipeController');
+    Route::resource('/comments', 'CommentsController');
+});
 
-
-            });
+// Route::post('/admin/recipes', 'Admin\RecipeController@update');
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/categories', 'HomeController@categoriesList');
 Route::get('/categories/{id}', 'HomeController@singleCategory');
 // Route::get('/recipes/{id}', 'UserController@getRecipes');
 Route::get('/user', 'UserController@getProfile')->middleware('auth')->name('profile');
-// Route::get('/user', 'UserController@userInfo');
+Route::get('/user/{id}', 'UserController@userInfo');
 
 // Route::get('/user/{id}', [
 //     'uses' => 'UserController@getProfile',
@@ -50,6 +52,8 @@ Route::get('/user', 'UserController@getProfile')->middleware('auth')->name('prof
 
 
 Route::resource('/recipes', 'RecipeController');
+Route::post('/recipes/add', 'RecipeController@store');
+Route::resource('/comments', 'CommentsController');
 // Route::get('/recipes/create', 'RecipeController@autocomplete');
 // Route::get('autocomplete', 'RecipeController@autocomplete')->name('autocomplete');
 
@@ -58,8 +62,3 @@ Route::resource('/products', 'ProductController');
 Route::resource('/home', 'HomeController');
 
 // Route::get('/category', 'HomeController@index');
-
-
-
-
-

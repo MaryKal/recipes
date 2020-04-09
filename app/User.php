@@ -41,6 +41,10 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Recipe','user_id', 'id');///в таюлицу с рецептом писать ser id
     }
+    public function comment()
+    {
+        return $this->hasMany('App\Comment','user_id', 'id');///в таюлицу с рецептом писать ser id
+    }
     public function isAdmin()
     {
         return $this->role == 'admin' ? true : false;

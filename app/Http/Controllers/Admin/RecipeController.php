@@ -87,11 +87,7 @@ class RecipeController extends Controller
     {
        
 
-        $recipe = Recipe::where('id', $id)->first();
-        // $user = Users::where()
-        // dd($users);
-
-        return view('admin.recipes.edit', compact('recipe'));
+        
     }
 
     /**
@@ -100,9 +96,15 @@ class RecipeController extends Controller
      * @param  \App\Recipe  $recipe
      * @return \Illuminate\Http\Response
      */
-    public function edit(Recipe $recipe)
+    public function edit( $id)
     {
-        //
+        // $recipe = Recipe::where('id', $id)->first();
+        $recipe = Recipe::find($id);
+        // dd($recipe);
+        // $user = Users::where()
+        // dd($recipe);
+
+        return view('admin.recipes.edit', compact('recipe'));
     }
 
     /**
@@ -112,9 +114,36 @@ class RecipeController extends Controller
      * @param  \App\Recipe  $recipe
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Recipe $recipe)
+    public function update(Request $request, $id)
     {
-        //
+        // dd($request->all());
+
+        $request->validate([
+            'name' => 'required|max:100|min:3',
+            'describe' => 'required|min:3',
+            'category_id' => 'required',            
+            'slug' => '',
+            'img' =>'image|mimes:jpeg,png,jpg,gif,svg',
+        ]);
+
+        $recipe = Recipe::find($id);
+        // dd($id);
+
+        $recipe->name = $request->name;
+
+        $recipe->describe = $request->describe;
+        $recipe->category_id = $request->category_id;
+        // $recipe->user_id = '12';
+        $recipe->slug = $request->slug;
+        $recipe->image = $request->image;
+        // $category = Category::find($id)->update($request->all());
+
+            // dd($request->all());
+        $recipe->update();
+
+        // dd($category->img);
+            // $category->update();
+        return redirect('admin\recipes');
     }
 
     /**
