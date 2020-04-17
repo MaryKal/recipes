@@ -1,0 +1,55 @@
+footer {
+    min-height: 200px;
+    flex: 0 0 auto;
+    margin-top: 64px;
+
+    .footer-block-2 {
+        // height: 220px;
+        background-color: $main-background;
+        // margin-bottom: 0;
+        padding-top: 0.6em;
+        display: flex;
+        flex-flow: column nowrap;
+
+        h4 {
+            text-align: center;
+            margin: 16px auto;
+            color: $text-color;
+        }
+        .social-media {
+            display: flex;
+            justify-content: center;
+
+            ul {
+                list-style: none;
+                display: flex;
+                margin: 0;
+                padding: 0;
+                li {
+                    margin: 1em;
+                    font-size: 20px;
+                }
+                .fa-pinterest,
+                .fa-youtube {
+                    color: red;
+                }
+                .fa-facebook-f,
+                .fa-twitter {
+                    color: blue;
+                }
+            }
+        }
+        .links {
+            display: flex;
+            justify-content: flex-start;
+            ul {
+                list-style: none;
+                display: flex;
+                margin-top: 3.4em;
+                li {
+                    margin-right: 0.6em;
+                }
+            }
+        }
+    }
+}

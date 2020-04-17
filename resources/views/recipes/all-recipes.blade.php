@@ -1,18 +1,18 @@
-<table class="table">
-        <thead>
-            <th>#</th>
-            <th>Name</th>
-            <th>Describe</th>
+@extends('layouts.main')
 
-        </thead>
+@section('content')
 
-        <tbody>
-        @foreach ($recipes as $recipe)
-            <tr>
-                <td>{{$loop->iteration}}</td>
-                <td><a href="recipes/{{$recipe->id}}">{{$recipe->name}}</a></td>
-                <td>{{$recipe->describe}}</td>
-                <td>{{$recipe->likes}}</td>
 
-            </tr>
-        @endforeach
+@foreach ($recipes as $recipe)
+<div class="recipe-card big-card">
+    <div><img src="{{asset($recipe->image)}}" alt=""> </div>
+    <div>
+        <h2><a href="recipes/{{$recipe->id}}">{{$recipe->name}}</a></h2>
+        <p>{{$recipe->describe}}</p>
+    </div>
+</div>
+@endforeach
+       
+            {!! $recipes->render();!!}
+
+@endsection

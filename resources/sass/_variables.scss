@@ -18,10 +18,16 @@ $yellow: #ffed4a;
 $green: #38c172;
 $teal: #4dc0b5;
 $cyan: #6cb2eb;
+$text-color: #3A3F5C;
+$main-green: #4DBC4B;
+$main-background: #f8f8f8;
 $fa-font-path: '../webfonts';
 
+
 //flexible
-$flexible-around: flex, space-around;
+$flexible-around: flex;
 $flexible-center: flex, center;
 //links
-$none: text-decoration, none;
+$none: none;
+$headers-mg: 64px auto 32px;
+$main-mg: 16px 8px;

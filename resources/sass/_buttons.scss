@@ -1,0 +1,23 @@
+.btn{
+    margin:64px auto;
+    padding: 15px 62px;
+    border: 3px $main-green solid;
+    color: $main-green;
+    border-radius: 9px;
+    background-color: #ffffff;
+    text-align: center;
+    text-transform: uppercase;
+    margin: 16px 8px;
+}
+
+.btn-solid{
+    padding: 15px 62px;
+        border: none;
+        color: #ffffff;
+        margin: 16px 8px;
+        background: linear-gradient(90deg, #8dde8c 0%, #4dbc4b 100%);
+        text-align: center;
+        border-radius: 9px;
+}
+
+

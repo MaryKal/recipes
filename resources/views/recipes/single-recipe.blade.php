@@ -3,14 +3,14 @@
 <a href="/home/">Back</a>
 <div class="recipe-describe ">
     <div class="recipe-images">
-        <img src="{{$recipe->image}}" alt="" style="width: 200px; height:100px;">
+        <img src="{{asset($recipe->image)}}" alt="" style="width: 200px; height:100px;">
     </div>
     <div class="recipe-items">
         <h2>{{$recipe->name}}</h2>
         <ul>
-            <li>Время</li>
-            <li>Количество ингр</li>
-            <li>Количество персон</li>
+            <li><i class="far fa-clock"></i>{{$recipe->time}}</li>
+            <li>byu</li>
+            <li><i class="fas fa-utensils"></i>{{$recipe->persons}}</li>
             <!-- <li>{{$recipe->categories->name}}</li> -->
         </ul>
         <div>
@@ -28,7 +28,11 @@
             </div>
 
             <ul>
-                <li>{{$recipe->likes}}</li>
+                <li >
+                    
+                    <i class="far fa-heart like"  data-id="{{$recipe->id}}">{{$likes}}</i>
+                
+                </li>
 
                 <li>item 2</li>
             </ul>
@@ -40,17 +44,17 @@
         <h4>Приготовление</h4>
         <div>
             <h4>Шаг 1</h4>
-            <p>{!! $recipe->steps !!}</p>
+            {!! $recipe->steps !!}
         </div>
     </div>
     <div class="ingridients">
         <h3>Ингридиенты</h3>
         <ul>
-            <li>Lorem, ipsum.</li>
-            <li>Lorem, ipsum.</li>
-            <li>Lorem, ipsum.</li>
-            <li>Lorem, ipsum.</li>
-            <li>Lorem, ipsum.</li>
+        @foreach($recipe->products as $product)        
+            <li>{{$product->name}} - {{$product->pivot->count}}  {{$product->pivot->unit}}</li>   
+                   
+        
+        @endforeach
         </ul>
     </div>
 </div>
@@ -68,7 +72,7 @@
 @endif
 
 @if ($comments)
-@foreach ($comments as $item)
+@foreach ($recipe->comment as $item)
 
 <div class="comment">
     <div class="img-div">

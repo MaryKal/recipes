@@ -1,12 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
-
+// use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Recipe;
 use App\Category;
 use app\User;
-
+use App\Likes;
 
 class HomeController extends Controller
 {
@@ -43,8 +43,11 @@ class HomeController extends Controller
     {
         // $categoriesList = $this->categoriesList();
         // $singleCategory = $this->singleCategory($id);
+        // $rec = Recipe::find($id)->get();
         $recipes = $this->newestRecipes();
         $categories = $this->popularCategories();
+        // $singleRecipe = $this->singleRecipe($rec);
+        // $allRecipes = $this->allRecipes();
        
         // $user = $this->getProfile();
         // $user = $this->userProfile($id);
@@ -55,7 +58,13 @@ class HomeController extends Controller
     }
     public function newestRecipes()
     {
+        // $recipe = Recipe::all();
+        // dd($recipe->id);
         $newestRecipes = Recipe::orderBy('id', 'desc')->take(4)->get();
+        // $count = Likes::where('recipe_id', $recipe->id)->get()->count();
+
+        // $newestRecipes->describe;
+       
 
         return $newestRecipes;
     }
@@ -79,17 +88,31 @@ class HomeController extends Controller
         // $rec = $category->recipe;
 
         $recipes = Recipe::where('category_id', $id)->get();
-        // $recipe = $recipes->recipe;
-        // $recipe = Category::where('category_id','=' ,5)->get();
-        // dd($recipe);
-        // dd($category);
       
-
-        // $rec = Recipe::find($recipes)->recipe;
-        // dd($recipes);
 
         return view('categories.single-category', compact('recipes','category'));
     }
 
+    public function allRecipes()
+    {
+    // dd('hi');
+
+        $recipes = \DB::table('recipes')->paginate(5);
+        // $recipes = Recipe::all();
+        // $recipes->paginate(8);
+        // $count = Likes::where('recipe_id', $id)->get()->count();
+
+        // dd($recipes);
+
+        return view('recipes.all-recipes', compact('recipes'));
+    }
+public function singleRecipe($id)
+{
+    // dd('hi');
+    $recipe = Recipe::find( $id);
+    $count = Likes::where('recipe_id', $id)->get()->count();
+       
+    return view('recipes.single-recipe', compact('recipe','count'));
+}
 
 }

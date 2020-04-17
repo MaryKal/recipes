@@ -20,5 +20,6 @@ class UserMiddleware
 
             return redirect('/user/index');
         }
+        return $next($request);
     }
 }

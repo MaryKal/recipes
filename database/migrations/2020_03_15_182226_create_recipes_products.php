@@ -30,6 +30,9 @@ class CreateRecipesProducts extends Migration
             $table->foreign('product_id')
             ->references('id')->on('products')
             ->onDelete('cascade');
+
+            $table->double('count');
+            $table->char('unit', 20);
         });
     }
 

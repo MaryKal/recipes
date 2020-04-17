@@ -1,0 +1,115 @@
+@import 'buttons';
+
+header {
+    min-height: 29em;
+    width: 100%;
+    background-color: #c4c4c4;
+}
+nav {
+    display: flex;
+    justify-content: space-around;
+    background-color: $main-background;
+    align-items: center;
+    min-height: 74px;
+    .nav-links {
+        ul {
+            padding: 0;
+            margin: 0;
+            justify-content: space-around;
+            li {
+                margin: 8px;
+            }
+        }
+    }
+    a {
+        color: #3a3f5c;
+    }
+    ul {
+        list-style: none;
+        display: flex;
+        justify-content: space-between;
+    }
+    li {
+        height: 2em;
+        width: 5em;
+        justify-content: space-between;
+    }
+    .guest-links {
+        :first-child {
+            padding: 15px 62px;
+            border: 3px $main-green solid;
+            color: $main-green;
+            border-radius: 9px;
+            margin: 16px 8px;
+            background-color: #ffffff;
+            text-align: center;
+        }
+
+        :last-child {
+            padding: 15px 62px;
+            border: none;
+            color: #ffffff;
+            margin: 16px 8px;
+            background: linear-gradient(90deg, #8dde8c 0%, #4dbc4b 100%);
+            text-align: center;
+            border-radius: 9px;
+        }
+    }
+    .user-links {
+        display: flex;
+
+        .select-style-user {
+            margin: 16px 8px;
+
+            .dropdown {
+                
+                &:hover {
+                    background: linear-gradient(90deg, #8dde8c 0%, #4dbc4b 100%);
+                    color: #ffffff;
+                    border-radius: 9px;
+                }
+                .dropbtn {
+                    cursor: pointer;                    
+                    color: $main-green;
+                    padding: 15px 62px;
+                    border: 3px $main-green solid;
+                    border-radius: 9px;
+                    min-width: 208px;
+                    
+                    &:hover {
+                        background: linear-gradient(90deg, #8dde8c 0%, #4dbc4b 100%);
+                        color: #ffffff;
+                    }
+                }
+            }
+
+            .dropdown-content {
+                display: none;
+                position: absolute;
+                background-color: #f9f9f9;
+                min-width: 160px;
+                border-radius: 9px;
+                box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+                z-index: 1;
+                a {
+                    color: $text-color;
+                    padding: 12px 16px;
+                    text-decoration: none;
+                    display: block;
+                    text-align: left;
+                    &:hover {
+                        background-color: #ddd;
+                    }
+                }
+            }
+
+            .show {
+                display: block;
+            }
+        }
+    }
+}
+
+a {
+    text-decoration: none;
+}
