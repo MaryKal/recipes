@@ -1,0 +1,133 @@
+// ============================recipe-cards================================
+.recipe-card {
+    min-height: 150px;
+    min-width: 248px;
+    max-width: 13.33333%;
+    margin: 16px;
+    padding: 8px;
+    border: 1px #4dbc4b solid;
+    border-radius: 9px;
+    background-color: $main-background;
+    display: flex;
+    flex-flow: column nowrap;
+
+    h3 {
+        text-align: left;
+        margin: 0;
+        a {
+            color: $text-color;
+        }
+    }
+    p {
+        text-align: justify;
+        color: $text-color;
+    }
+    img {
+        width: 100%;
+        height: 40%;
+        border-top-left-radius: 9px;
+        border-top-right-radius: 9px;
+    }
+    .rec-describe {
+        ul {
+            display: flex;
+            justify-content: space-around;
+            list-style: none;
+            padding: 0;
+            
+    }
+}
+}
+.big-card{
+    min-width: 100%;
+    flex-flow: row nowrap;
+
+    img{
+        height: 100%;
+        width: 70%;
+        border-top-left-radius: 9px;
+        border-bottom-left-radius: 9px;
+        border-top-right-radius: 0;
+
+        
+    }
+}
+
+// ====================================category-cards============================
+.category-card{
+    
+        min-height: 150px;
+        min-width: 248px;
+        max-width: 33.33333%;
+        border: 1px $main-green solid;
+        color: $main-green;
+        border-radius: 9px;
+        // margin: 16px 8px;
+        background-color: #ffffff;
+        margin: 16px;
+
+        a {
+            color: $text-color;
+        }
+    
+    }
+
+// ====================================comments-cards============================
+.comments-block {
+    background-color: #f3f1f1;
+    padding-bottom: 1em;
+}
+.comment {
+    display: flex;
+    margin: 1em auto;
+    width: 80%;
+    height: 180px;
+    // justify-content: flex-start;
+    flex-flow: row nowrap;
+    background-color: #ffffff;
+    // align-content: center;
+    align-items: center;
+    // border: 1px solid black;
+
+    .img-div {
+        border: 1px solid black;
+        border-radius: 50%;
+        width: 80px;
+        height: 80px;
+        margin: 50px;
+    }
+    .comment-text {
+        display: flex;
+        flex-flow: column wrap;
+        margin: 10px;
+    }
+    h5 {
+        margin: 15px 0;
+    }
+    p {
+        margin: 15px 0;
+    }
+    .reply-link {
+        margin: 2em 0em 0em 0em;
+    }
+}
+
+.enter-comment {
+    display: flex;
+    margin: 0em auto;
+    width: 75%;
+    height: 140px;
+    // justify-content: flex-start;
+    flex-flow: column nowrap;
+    // align-content: center;
+    align-items: stretch;
+    // border: 1px solid black;
+
+    textarea {
+        width: 100%;
+        height: 65px;
+        margin: 1em 0 1em 0;
+        resize: none;
+    }
+
+}

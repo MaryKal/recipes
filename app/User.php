@@ -45,6 +45,10 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Comment','user_id', 'id');///в таюлицу с рецептом писать ser id
     }
+    public function likes()
+    {
+        return $this->hasMany('App\Likes', 'user_id', 'id');
+    }
     public function isAdmin()
     {
         return $this->role == 'admin' ? true : false;

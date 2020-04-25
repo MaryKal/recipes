@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class CommentsSeeder extends Seeder
+class CommentsTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,6 +11,7 @@ class CommentsSeeder extends Seeder
      */
     public function run()
     {
-        //
+        factory(App\Comment::class,
+            10)->create();
     }
 }

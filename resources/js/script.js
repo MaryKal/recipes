@@ -38,28 +38,49 @@ window.onclick = function(e) {
 
 const axios = require('axios').default;//подключени axios
     if(document.forms.recipe){
-        let steps = document.querySelectorAll('.steps');
-        let image = [];
+
+        const addStep = document.querySelector('.add-step');
+        const newStep = document.querySelector('.new-step');
+        const RemoveNewStep = document.querySelector('.remove-step');
+        const steps = document.querySelector('.steps');
+        const newProduct = document.querySelector('.new-product'); 
+        const addNewProduct = document.querySelector('.add-product');
+        const prodItem = document.querySelector('.product-item-clean');
+
+
+
+        function addNewStep(){
+            let div = document.createElement('div');
+            div.className = 'steps'
+
+            div.innerHTML = `
+                                <input type="file" name="image[]"  id="file" multiple/>
+                                <input type="text" name=""  />                       
+                            `
+            newStep.append(div);            
+        }
+        addStep.addEventListener('click',()=>{
+            addNewStep();
+        // console.log(RemoveNewStep);
+        });     
+          
         document.forms.recipe.addEventListener('submit', function (e) {
         e.preventDefault();
+        let steps = document.querySelectorAll('.steps');
         let step = '';
+       
         for (const iterator of steps) {            
             // console.log(imgSrc.slice(""));
-            step+='<img src="/images/recipes/'+ iterator.firstElementChild.value.split("\\").pop() +'" /> <br>';   
+            step+='<img style="max-width: 100%;" src="/images/recipes/'+ iterator.firstElementChild.value.split("\\").pop() +'" /> <br>';   
             step+='<p>'+iterator.lastElementChild.value+'</p> <br>';      
 
         }
+    
         // console.log(step);
    
         const fd = new FormData(this);
-        // let addImg = document.querySelectorAll('#file');
-
-        // fd.append('image', addImg.files[0]);
-        
+       
         fd.append('steps', step);
-
-        console.log(fd);
-        // console.log(fd);   
 
         axios({
             method: 'post',
@@ -74,17 +95,92 @@ const axios = require('axios').default;//подключени axios
             // return response.data;
 
             })
-            // .then(function(data){
-            //     console.log(data)
+            .then(function(data){
+                console.log(data)
       
-            // })
+            })
             .catch(function (error) {
                 console.log(error.response.data);
                 // console.log(fd);
                 // console.log(error.response.headers);
                 
                 })
-            
-            
     });
     }
+// =======================================autocomlete====================
+
+    $(document).ready(function() {
+    $('#productItemClean').children("select").select2();
+
+    $("#add").click(function(){
+    $myClone = $("#productItemClean").clone();
+
+    $myClone.find("span").remove();
+    $myClone.find("select").select2();
+    // $($myClone).css('visibility', 'visible');
+    // $($myClone).toggleClass("productItemClean")
+    $($myClone).removeAttr('id')
+    $("productItemClean select").attr('name', 'products[]')
+    $($myClone).css('visibility', 'visible');
+    $($myClone).css('height', '25px');
+    // $($myClone).css('outline', 'none');
+        $('#new-product').append($myClone);
+       })
+
+});
+
+
+// =============================like=============================
+const like = document.querySelectorAll('.like');
+const dislike = document.querySelectorAll('.dislike');
+const likeCount = document.querySelectorAll('.like-count');
+const heart = document.querySelectorAll('.fa-heart');
+
+console.log(heart)
+    
+    //if uder id already liked delete heart from view
+    like.forEach(item=>{
+        item.addEventListener('click',(e)=>{
+            e.preventDefault();
+            // let liked = e.target.previousElementSibling == null;
+            let id  = e.target.getAttribute('data-id');
+            let liked = e.target.getAttribute('data-isLiked')
+            console.log(this.item) 
+
+            if(liked != 'liked'){               
+                e.target.classList.add('red');
+
+                axios({
+                    method: 'get',
+                    url: '/like/' + id + '/liked',
+                    })
+                    .then(response=>{
+                        // console.log('ANSWER :', response);
+                        e.target.setAttribute('data-isLiked', 'liked');
+                        item.innerHTML = response.data;
+                        // console.log(item.innerHTML = response.data)
+                    })
+                    .catch(function (error) {
+                        console.log(error.response.data);
+                        })  
+                }else{
+                    e.target.classList.remove('red');
+
+
+                    axios({
+                    method: 'get',
+                    url: '/like/' + id + '/disliked',
+                    })
+                    .then(response=>{
+                        // console.log('ANSWER :', response);
+                        e.target.setAttribute('data-isLiked', '');
+                        item.innerHTML = response.data;
+                    })
+                    .catch(function (error) {
+                        console.log(error.response.data);
+                        }) 
+                }
+        })
+    })
+
+

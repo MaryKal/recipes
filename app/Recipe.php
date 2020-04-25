@@ -15,7 +15,9 @@ class Recipe extends Model
         'likes',
         'user_id',
         'category_id',
-        'steps'
+        'steps',
+        'count',
+        'unit'
     ];
     public function categories()
     {
@@ -27,7 +29,7 @@ class Recipe extends Model
     }
     public function products()
     {
-        return $this->belongsToMany('App\Product','recipes_products','recipe_id','product_id');
+        return $this->belongsToMany('App\Product','recipes_products','recipe_id','product_id')->withPivot('count','unit');
     }
     public function comment()
     {
@@ -40,6 +42,10 @@ class Recipe extends Model
     public function stepImages()
     {
         return $this->ManyToMany('App\ImageRecipe','id','recipe_id');
+    }
+    public function likes()
+    {
+        return $this->hasMany('App\Likes', 'recipe_id', 'id');
     }
    
 }

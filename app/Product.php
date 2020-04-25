@@ -15,7 +15,7 @@ class Product extends Model
 
     public function products()
     {
-        return $this->manyToMany('App\Recipe');
+        return $this->manyToMany('App\Recipe')->withPivot('count','unit');
         
     }
 }

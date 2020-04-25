@@ -11,8 +11,9 @@ use App\Recipe;
 use App\User;
 use App\Product;
 use App\Comment;
+use App\RecipeProduct;
 use View;
-
+use App\Likes;
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -37,6 +38,8 @@ class AppServiceProvider extends ServiceProvider
         View::share('users', User::all());
         View::share('products', Product::all());
         View::share('comments', Comment::all());
+        View::share('recipeProducts', RecipeProduct::all());
+        View::share('likes', Likes::all());
 
         // Shema::defaultStringLength(191);
         

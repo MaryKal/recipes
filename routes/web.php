@@ -35,30 +35,45 @@ Route::group([
     Route::resource('/comments', 'CommentsController');
 });
 
-// Route::post('/admin/recipes', 'Admin\RecipeController@update');
-
-Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/categories', 'HomeController@categoriesList');
-Route::get('/categories/{id}', 'HomeController@singleCategory');
-// Route::get('/recipes/{id}', 'UserController@getRecipes');
-Route::get('/user', 'UserController@getProfile')->middleware('auth')->name('profile');
-Route::get('/user/{id}', 'UserController@userInfo');
-
-// Route::get('/user/{id}', [
-//     'uses' => 'UserController@getProfile',
-//     'as' => 'user.index',
-//     'middleware' => ['auth'],
-//     ]);
-
-
-Route::resource('/recipes', 'RecipeController');
-Route::post('/recipes/add', 'RecipeController@store');
+//Resource controllers
+Route::resource('/recipes', 'RecipeController')->middleware('auth');
+Route::resource('/products', 'ProductController');
 Route::resource('/comments', 'CommentsController');
-// Route::get('/recipes/create', 'RecipeController@autocomplete');
-// Route::get('autocomplete', 'RecipeController@autocomplete')->name('autocomplete');
+Route::resource('/home', 'HomeController');
+
+//Home controller
+Route::get('/home', 'HomeController@index')->name('home');
+
+    //Home categogries
+    Route::get('/categories', 'HomeController@categoriesList');
+    Route::get('/categories/{id}', 'HomeController@singleCategory');
+
+    //Home recipes
+    Route::get('/recipes/recipe-{id}', 'HomeController@singleRecipe');
+    Route::get('/recipes/all-recipes-guest', 'HomeController@allRecipes');
+
+    //Get user Profile
+    Route::get('/user', 'UserController@getProfile')->middleware('auth')->name('profile');
+    Route::get('/user/{id}', 'UserController@userInfo');
+
+
+
+//
+Route::post('/recipes/add', 'RecipeController@store');
+
+//LIkes
+Route::get('/like/{recipe_id}/liked', 'LikesController@like')->middleware('auth');
+Route::get('/like/{recipe_id}/disliked', 'LikesController@dislike')->middleware('auth');
+
+
+
+
+// Route::get('search', 'RecipehController@index');
+// Route::get('/autocomplete', 'RecipeController@autocomplete')->name('autocomplete');
 
 // Route::get('recipes/{id}', 'RecipeController@show');
-Route::resource('/products', 'ProductController');
-Route::resource('/home', 'HomeController');
+
+// Route::get('/recipes/create', 'ProductController@store')->name('store');
+
 
 // Route::get('/category', 'HomeController@index');

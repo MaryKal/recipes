@@ -11,7 +11,7 @@
     <textarea class="" name="comment" id="comment" placeholder="Write your comment"  value="Write your comment"></textarea>
 </div>
 <div class="add-comments-btn">
-<button type="submit" class="">Send</button>
+<button type="submit" class="btn">Send</button>
 </div>
 </div>
 @else
