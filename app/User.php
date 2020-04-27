@@ -2,21 +2,22 @@
 
 namespace App;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
     use Notifiable;
-
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password','blocked_date',
+    ];
+    protected $dates = [
+        'blocked_date'
     ];
 
     /**
@@ -57,4 +58,12 @@ class User extends Authenticatable
     {
         return $this->role == null ? true : false;
     }
+    public function isBlocked()
+    {
+
+        return $this->role == 'blocked' ? true : false;
+  
+    }
+   
+    
 }

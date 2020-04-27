@@ -15,11 +15,31 @@ class UserMiddleware
      */
     public function handle($request, Closure $next)
     {
-        return $next($request);
-        if(\Auth::user()->isUser()){
-
-            return redirect('/user/index');
-        }
-        return $next($request);
+        
+     
+            // if (\Auth::user()->isBlocked()) { 
+            //     $message = 'Your account has been blocked.';
+                  
+            //     return auth()->logout()->with($message);
+            //     // return 'хуй';
+             
+            // }else{
+            //     return redirect('/user/index');
+            // }
+            return $next($request);
+            
+        
     }
+        // if(\Auth::user()->isUser() ){
+        //     if(\Auth::user()->isBlocked()){
+
+        //         return 'Your account has been blocked';
+        //     }else{
+        //         return redirect('/user/index');
+        //     }
+
+          
+        // }
+//         // return $next($request);
+//     }
 }

@@ -21,14 +21,18 @@ class RecipeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        // $recipes = Recipe::all();
-        // // $likes = Likes::where('reecipe_id', )
+        $recipes = Recipe::paginate(5);
 
-        // // dd($recipes);
+        
 
-        // return view('recipes.all-recipes', compact('recipes'));
+
+        // $likes = Likes::where('reecipe_id', )
+
+        // dd($recipes);
+
+        return view('recipes.index', compact('recipes'));
     }
 
     /**
@@ -53,72 +57,76 @@ class RecipeController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function store(Request $request)
-    {
-        // dd($request->all());
+    //
+    
+public function store(Request $request)
+{
+    // dd($request->all());
 
-        $request->validate([
-            'name' => 'required|max:100|min:3',
-            'describe' => 'required|min:3',
-            'category_id' => 'required',
-            'steps' => 'min:3',
-            // 'img-recipe' => '',
-            'user_id' => '',
-            'slug' => '',
-        ]);
+    $request->validate([
+        'name' => 'required|max:100|min:3',
+        'describe' => 'required|min:3',
+        'category_id' => 'required',
+        // 'img-recipe' => '',
+        'user_id' => '',
+        'slug' => '',
+        'products' => 'required'
+    ]);
 
-        $user = auth()->user()->id;
-        $recipe = new Recipe;
-        $recipeProducts = new RecipeProduct;
+    $user = auth()->user()->id;
+    $recipe = new Recipe;
+    $recipeProducts = new RecipeProduct;
 
-        $recipe->name = $request->name;
-        $recipe->describe = $request->describe;
-        $recipe->category_id = $request->category_id;
-        $recipe->user_id = $user;
-        $recipe->slug = $request->slug;
-        $recipe->steps = $request->steps;
-        $recipe->time = $request->time;
-        $recipe->persons = $request->persons;
-     
-        $request->request->add(['user_id' => $user]);
+    $recipe->name = $request->name;
+    $recipe->describe = $request->describe;
+    $recipe->category_id = $request->category_id;
+    $recipe->user_id = $user;
+    $recipe->slug = $request->slug;
+    // $recipe->steps = $request->products;
+    $recipe->time = $request->time;
+    $recipe->persons = $request->persons;
+ 
+    // $request->request->add(['user_id' => $user]);
 
-        $file = $request->file('img');
-        if ($file) {
-            $fName = $file->getClientOriginalName();
-            $file->move('images', $fName);
-            $recipe->image = 'images/'.$fName;
-        }
-
-        if ($request->file('image')) {
-            foreach ($request->file('image') as $img) {
-                $newName = $img->getClientOriginalName();
-                $img->move('images/recipes', $newName);
-            }
-        };
-        // dd($request->all());
-        // $prod = $request->products;
-        $recipe->save();
-        // $recipe->products()->sync($request->products);
-        // $recipe->products()->sync($request->products);
-
-        $singlePrductValue = $request->products;
-        $singleCountValue = $request->count;        
-        $singleUnitValue = $request->unit;
-        $fullItems = [];
-
-        $index=0;
-        foreach($singlePrductValue as $key=>$product){
-            $fullItems[$product] = ['count'=>$singleCountValue[$index], 'unit'=>$singleUnitValue[$index]];
-            // $ids[] = ['product_id' =>$singlePrductValue, 'recipe_id' => $recipe->id]; 
-            $index++;
-            // dd($recipe->id);
-            // \DB::table('recipes_products')->insert($fullItems,$ids);      
-        }
-        $recipe->products()->sync($fullItems);
-
-        return response()->json(['name' => 'ok']);
-        // return redirect('/user/index');
+    $file = $request->file('img');
+    if ($file) {
+        $fName = $file->getClientOriginalName();
+        $file->move('images', $fName);
+        $recipe->image = 'images/'.$fName;
     }
+
+    $recipe->save();
+
+    $singlePrductValue = $request->products;
+    $singleCountValue = $request->count;        
+    $singleUnitValue = $request->unit;
+    $fullItems = [];
+
+    $index=0;
+    foreach($singlePrductValue as $key=>$product){
+        $fullItems[$product] = ['count'=>$singleCountValue[$index], 'unit'=>$singleUnitValue[$index]];
+        $index++;
+    }
+
+    $steps = [];
+    $i = 0;
+    foreach($request->stepText as $text){
+        $img = $request->file('stepImage')[$i];
+        $fName = $img->getClientOriginalName();
+        $img->move('images/recipes', $fName);
+        $steps[] = ['step' => $text, 'image' => 'images/recipes/'.$fName];
+        $i++;
+    };
+ 
+    $recipe->steps()->createMany($steps);
+    $recipe->products()->sync($fullItems);
+
+    // return response()->json(['name' => 'ok']);
+    return redirect('/user');
+
+    // return back();
+    // return redirect('/user/index');
+}
     
 
     /**
@@ -130,18 +138,13 @@ class RecipeController extends Controller
     public function show($id)
     {
 
-        // $qw = Recipe::find(1)->users;
-        // dd($qw);
-
-        // $recipe = Recipe::where('id', $id)->first();
-        // dd($recipe->users);
         $recipe = Recipe::find($id);
         $likes =  Likes::where('recipe_id', $id)->get()->count();
-        // // $comments = Comment::where('recipe_id', '=', $id)->get();
+        $comments = Comment::where('recipe_id', '=', $id)->get();
         // // $ingridients = RecipeProduct::where('recipe_id', '=', $id)->get();
 
         // // dd($rec);
-        return view('recipes.single-recipe', compact('recipe','likes'));
+        return view('recipes.show', compact('recipe','likes','comments'));
 
         //     $user = auth()->user()->id;
         //    $recipes = User::find($user)->recipe;        
@@ -157,11 +160,15 @@ class RecipeController extends Controller
     public function edit($id)
     {
         $recipe = Recipe::find($id);
+        // dd($recipe);
         $recipes = Category::all('id', 'name')->pluck('name', 'id');
+        // $products = Product::all();
 
-        // dd($category);
+        $recProducts = RecipeProduct::where('recipe_id', $id)->get();
 
-        return view('recipes.edit', compact('recipe', 'recipes'));
+        // dd($product);
+
+        return view('recipes.edit', compact('recipe', 'recipes', 'recProducts'));
     }
 
     /**
@@ -173,7 +180,107 @@ class RecipeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        //  dd($request->all());
+        
+        $request->validate([
+            'name' => 'required|max:100|min:3',
+            'describe' => 'required|min:3',
+            'category_id' => 'required',
+            'user_id' => '',
+            'products' => 'required',
+            'time' => 'required',
+            'persons' => 'required'
+        ]);
+
+        $user = auth()->user()->id;
+        
+
+        $recipe =  Recipe::find($id);
+            // dd($recipe);
+
+        $recipe->name = $request->name;
+        $recipe->describe = $request->describe;
+        $recipe->category_id = $request->category_id;
+        $recipe->user_id = $user;
+        $recipe->slug = $request->slug;
+        // $recipe->steps = $request->products;
+        $recipe->time = $request->time;
+        $recipe->persons = $request->persons;
+        // dd($request->all());
+     
+        // $request->request->add(['user_id' => $user]);
+
+        $file = $request->file('img');
+        if($file){
+            $fName = $file->getClientOriginalName();
+            $file->move('images', $fName);
+            $recipe->image = 'images/'.$fName;
+        }
+        $recipe->update();
+             
+
+        $singlePrductValue = $request->products;
+        $singleCountValue = $request->count;        
+        $singleUnitValue = $request->unit;
+        
+
+        $index=0;
+        $recipe->products()->detach();
+        foreach($singlePrductValue as $key=>$product){
+            $fullItems = [];
+            $fullItems[$product] = ['count'=>$singleCountValue[$index], 'unit'=>$singleUnitValue[$index]];
+            $index++;
+            $s=$recipe->products()->attach($fullItems);
+        }
+
+        $steps = [];
+        $i = 0;
+        // dd($request->file('stepImage'));
+        $recipe->steps()->delete();
+
+
+        foreach($request->stepText as $text){
+            $m = [];
+            $m['step'] = $text;
+            if($request->existsStepImage){
+                foreach($request->existsStepImage as $try){
+                    $m['image'] = $try;
+
+                }
+        //    dump($m);
+
+            }
+            else{
+                if(isset($request->file('stepImage')[$i]))
+                {
+                $img = $request->file('stepImage')[$i];           
+                // dump($img);
+                    
+                if($img){
+                    $fName = $img->getClientOriginalName();
+                    $img->move('/images/recipes', $fName);
+                    $m['image']  =  '/images/recipes/'.$fName;
+                }
+            }
+                    $i++;
+            }
+           $steps[] = $m;
+        //    dump($steps);
+
+            
+        // $recipe->steps()->attach($steps);
+
+        };
+    
+    // dd($steps);
+        $recipe->steps()->createMany($steps);
+        // $recipe->steps()->attach();
+
+        
+        // dd($request->all());
+        // $recipe->update();
+        // return response()->json(['name' => 'ok']);
+        return redirect('/user');
     }
 
     /**
@@ -184,7 +291,9 @@ class RecipeController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $recipe = Recipe::find($id);
+        $recipe->delete();
+        return back();
     }
     
     }

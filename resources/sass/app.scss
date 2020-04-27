@@ -10,6 +10,10 @@ $fa-font-path: '../webfonts';
 @import '~@fortawesome/fontawesome-free/scss/solid.scss';
 // @import '../select2/dist/js/select2';
 // @import 'select2/dist/css/select2';
+@import "header";
+@import "footer";
+@import "buttons";
+@import "cards";
 
 // Bootstrap
 // @import '~bootstrap/scss/bootstrap';

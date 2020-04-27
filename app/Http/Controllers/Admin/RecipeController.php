@@ -6,8 +6,9 @@ use App\Recipe;
 use Illuminate\Http\Request;
 use App\Category;
 use App\User;
-use App\RecipeUser;
+use App\Product;
 use App\Comment;
+use App\Likes;
 use App\Http\Controllers\Controller;
 
 
@@ -33,11 +34,10 @@ class RecipeController extends Controller
     public function create()
     {
         $recipe = new Recipe();
-        $recipes = Category::all('id','name')->pluck('name','id');
+        $recipes = Category::all('id', 'name')->pluck('name', 'id');
+        $products = Product::all();
 
-        // dd($recipes);
-
-        return view('admin.recipes.create', compact('recipe','recipes'));
+        return view('admin.recipes.create', compact('recipe','recipes','products'));
     }
 
     /**
@@ -48,33 +48,65 @@ class RecipeController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all());
-
         $request->validate([
             'name' => 'required|max:100|min:3',
             'describe' => 'required|min:3',
             'category_id' => 'required',
+            // 'img-recipe' => '',
             'user_id' => '',
             'slug' => '',
-            'img' =>'image|mimes:jpeg,png,jpg,gif,svg',
-
+            'products' => 'required'
         ]);
-        // dd($request->all());
-
-        // $user = auth()->user()->id;
+    
+        $user = auth()->user()->id;
         $recipe = new Recipe;
-        $recipe->name = $request->name;
 
+    
+        $recipe->name = $request->name;
         $recipe->describe = $request->describe;
         $recipe->category_id = $request->category_id;
-        $recipe->user_id = '12';
+        $recipe->user_id = $user;
         $recipe->slug = $request->slug;
-        $recipe->image = $request->image;
-        // dd($request->all());
-
-
+        // $recipe->steps = $request->products;
+        $recipe->time = $request->time;
+        $recipe->persons = $request->persons;
+     
+        // $request->request->add(['user_id' => $user]);
+    
+        $file = $request->file('img');
+        if ($file) {
+            $fName = $file->getClientOriginalName();
+            $file->move('images', $fName);
+            $recipe->image = 'images/'.$fName;
+        }
+    
         $recipe->save();
-        return redirect('/admin/recipes/');
+    
+        $singlePrductValue = $request->products;
+        $singleCountValue = $request->count;        
+        $singleUnitValue = $request->unit;
+        $fullItems = [];
+    
+        $index=0;
+        foreach($singlePrductValue as $key=>$product){
+            $fullItems[$product] = ['count'=>$singleCountValue[$index], 'unit'=>$singleUnitValue[$index]];
+            $index++;
+        }
+    
+        $steps = [];
+        $i = 0;
+        foreach($request->stepText as $text){
+            $img = $request->file('stepImage')[$i];
+            $fName = $img->getClientOriginalName();
+            $img->move('images/recipes', $fName);
+            $steps[] = ['step' => $text, 'image' => 'images/recipes/'.$fName];
+            $i++;
+        };
+     
+        $recipe->steps()->createMany($steps);
+        $recipe->products()->sync($fullItems);
+    dd($request->all());
+        return response()->json(['name' => 'ok']);
     }
 
     /**
@@ -86,7 +118,13 @@ class RecipeController extends Controller
     public function show($id)
     {
        
+        $recipe = Recipe::find($id);
+        $likes =  Likes::where('recipe_id', $id)->get()->count();
+        $comments = Comment::where('recipe_id', '=', $id)->get();
+        // // $ingridients = RecipeProduct::where('recipe_id', '=', $id)->get();
 
+        // // dd($rec);
+        return view('admin.recipes.show', compact('recipe','likes','comments'));
         
     }
 
@@ -152,9 +190,11 @@ class RecipeController extends Controller
      * @param  \App\Recipe  $recipe
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Recipe $recipe)
+    public function destroy(Recipe $recipe, $id)
     {
-        //
+        $recipe = Recipe::find($id);
+        $recipe->delete();
+        return back();
     }
 
    

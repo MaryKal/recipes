@@ -7,7 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class Recipe extends Model
 {
     protected $table = 'recipes';
+    // protected $primaryKey = 'id';
     protected $fillable = [
+        
         'name',
         'slug',
         'describe',
@@ -46,6 +48,18 @@ class Recipe extends Model
     public function likes()
     {
         return $this->hasMany('App\Likes', 'recipe_id', 'id');
+    }
+    public function steps()
+    {
+        return $this->hasMany('App\Steps');
+    }
+    
+    public function getLikesByUserAttribute(){
+        return  auth()->user() ? $this->likes->contains('user_id', auth()->user()->id) : false;
+    }
+    public function getIMGAttribute($value)
+    {
+        return $value ? $value : 'images/no-image.png';
     }
    
 }

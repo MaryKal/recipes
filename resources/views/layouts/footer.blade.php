@@ -15,10 +15,11 @@
     </div>
     <div class="links">
       <ul>
-        <li>2020 Nonameyet</li>
-        <li>Privacy Policy</li>
-        <li>Legat Terms</li>
+        <li><a href="#">Privacy Policy</a></li>
+        <li><a href="#">Legal Terms</a></li>
       </ul>
+      <h4>Любим собак не любим котов</h4>
+      <p>2020</p>
     </div>
   </div>
 </footer>
@@ -33,6 +34,7 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
 <!-- <script src="vendor/select2/dist/js/select2.min.js"></script> -->
+<script type="text/javascript" src="selectize.js"></script>
 
 <script src="{{ asset('js/app.js') }}" ></script>
 </body>

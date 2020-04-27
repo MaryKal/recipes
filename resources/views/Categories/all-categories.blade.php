@@ -1,22 +1,21 @@
-@extends('layouts.full-width')
+@extends('layouts.main')
 
 @section('content')
+ 
+ <div class="pop-cat-wrapper">
 
-<table class="table">
-        <thead>
-            <th>#</th>
-            <th>Name</th>
-            <th></th>
+<h2 class="center ">Choose category</h2>
 
-        </thead>
+<div class="popular-categories">
+    @foreach($categories as $category)
+    <div class="category-card cat-big" style="background-image:url({{$category->img}});background-size:cover;">
+        <h4><a href="categories/{{$category->id}}">{{$category->name}}</a></h4>
+    </div>
+    @endforeach
 
-        <tbody>
-        @foreach ($categories as $category)
-            <tr>
-                <td>{{$loop->iteration}}</td>
-                <td><a href="categories/{{$category->id}}">{{$category->name}}</a></td>
 
-            </tr>
-        @endforeach
+</div>
+
+</div>
 
 @endsection

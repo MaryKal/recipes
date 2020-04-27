@@ -1,11 +1,12 @@
 footer {
-    min-height: 200px;
+    min-height: 365px;
     flex: 0 0 auto;
     margin-top: 64px;
+    background-color: $text-color;
+
 
     .footer-block-2 {
         // height: 220px;
-        background-color: $main-background;
         // margin-bottom: 0;
         padding-top: 0.6em;
         display: flex;
@@ -13,8 +14,10 @@ footer {
 
         h4 {
             text-align: center;
+            font-size: 18px;
             margin: 16px auto;
-            color: $text-color;
+            color: #ffffff;
+            font-weight: 300;
         }
         .social-media {
             display: flex;
@@ -26,29 +29,53 @@ footer {
                 margin: 0;
                 padding: 0;
                 li {
+                    
                     margin: 1em;
                     font-size: 20px;
+                    // width: 32px;
+                    // height: 32px;
+                    // border: 1px #ffffff solid;
+                    // border-radius: 16px;
                 }
                 .fa-pinterest,
-                .fa-youtube {
+                .fa-youtube, .fa-instagram {
                     color: red;
+                    font-size: 32px;
+                    // width: 32px;
+                    // height: 32px;
+                    // border: 1px #ffffff solid;
+                    // border-radius: 16px;
                 }
                 .fa-facebook-f,
                 .fa-twitter {
                     color: blue;
+                    font-size: 32px;
+                    border-radius: 16px;
                 }
             }
         }
         .links {
             display: flex;
-            justify-content: flex-start;
+            align-content: center;
+            flex-flow: column wrap;
             ul {
                 list-style: none;
                 display: flex;
                 margin-top: 3.4em;
+                padding: 0;
                 li {
-                    margin-right: 0.6em;
+                    margin: 0.6em;
+                    a{
+                    color: #ffffff;
+                    text-decoration: inherit;
+
+                    }
                 }
+            }
+            p{
+                text-align: center;
+                color: #ffffff;
+                font-weight: 300;
             }
         }
     }

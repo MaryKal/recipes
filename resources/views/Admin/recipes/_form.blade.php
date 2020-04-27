@@ -1,71 +1,79 @@
+@csrf
+
+<!-- <input type="text" class="recipe-name" name="name" value="{{$recipe->name}}" placeholder="Введите имя рецепта"> -->
+
+<!-- <div class="">
+    <textarea class="" name="describe" placeholder="Введите краткое описание рецепта">
+    {{$recipe->describe}}
+    </textarea>
+</div> -->
+<div class="form-group">
+    <label for="name">Введите имя рцепта</label>
+    <input type="text" class="recipe-name form-control" name="name" value="{{$recipe->name}}" placeholder="Введите имя рецепта">
+</div>
+<div class="form-group">
+    <label for="describe">Краткое описание рецепта</label>
+    <textarea class="form-control" name="describe" placeholder="Введите краткое описание рецепта">
+    {{$recipe->describe}}
+    </textarea>
+</div>
+<!-- <input type="hidden" name="slug" id="slug" value="{{$recipe->name}}"> -->
+
+<label for="img">Выберите основное изображение</label>
+<input type="file" name="img" value="{{$recipe->image}}"><br>
+<img src="{{asset($recipe->image)}}" alt="">
+<input type="hidden" name="img" value="{{$recipe->image}}" />
 
 <div class="form-group">
-    <input type="text" class="form-control " name="name" value="{{$recipe->name}}">
+    <label for="time">Время приготовления</label>
+    <input type="text" value="{{$recipe->time}}" name="time">
 </div>
 
-<textarea class="" name="describe" id="describe">
-    {{$recipe->describe}}
-</textarea>
 
 <div class="form-group">
-    <select class="" name="category_id" id="category_id">
+    <label for="persons">Количество персон</label>
+    <input type="text" value="{{$recipe->persons}}" name="persons">
+</div>
+
+
+
+<div class="category">
+    <label for="category_id">Выберите категорию</label>
+    <select name="category_id" class="custom-select custom-select-md mb-3">
         @foreach ($categories as $item)
-        <option value="{{$item->id}}">{{ucfirst(trans($item->name))}}</option>
+        <!-- <option value="{{$item->id}}">{{$item->name}}</option> -->
+        <option value="{{$item->id}}">{{$item->name}}</option>
         @endforeach
     </select>
-    @error('category')
-    <div class="text-danger">{{ $message }}</div>
-    @enderror
 </div>
 
-<div class="form-goup div">
-    <input type="text" class="form-control " name="slug">
+
+<h2>Введите необходимы продукты</h2>
+@foreach($recipe->products as $product)
+<input value="{{$product->id}}" class="option" name="products[]">
+<input type="text" class="count" name="count[]" value="{{$product->pivot->count}}">
+<input type="text" class="unit" name="unit[]" value="{{$product->pivot->unit}}">
+@endforeach
+<div class="new-product" id="new-product"></div>
+
+<div class="center">
+    <button class="btn add-product btn-primary" id="add">Добавить продукт</button>
 </div>
 
-<div class="form-group">
-    {!! Form::label('image_label', 'Choose image:') !!}
-    <div class="input-group">
-        <input type="text" id="image_label" class="form-control" name="image" aria-label="Image" aria-describedby="button-image" value="{{$recipe->image}}">
-        <div class="input-group-append">
-            <button class="btn btn-outline-secondary" type="button" id="button-image">Select</button>
-        </div>
-    </div>
+@foreach($recipe->steps as $step)
+<div class="steps">
+    <img src="{{asset($step->image)}}" alt="">
+    <input type="hidden" name="stepImage[]" value="{{$step->image}}" />
+    <input type="text" name="stepText[]" value="{{$step->step}}" />
+</div>
+@endforeach
+
+<div class="new-step" id="new-step"></div>
+<div class="center">
+    <button class="btn add-step btn-primary">Добавить шаг</button>
 </div>
 
-<button class="btn btn-primary" id="" type="submit">Сохранить</button>
 
 
 
-@section('js')
-<script src="{{ asset('vendor/file-manager/js/file-manager.js') }}"></script>
-
-<script src="https://cdn.ckeditor.com/4.13.1/standard/ckeditor.js"></script>
-<script>
-    if (document.querySelector('#describe')) {
-        CKEDITOR.replace('describe', {
-            filebrowserImageBrowseUrl: '/file-manager/ckeditor'
-        });
-    };
-
-    document.addEventListener("DOMContentLoaded", function() {
-        document.getElementById('button-image').addEventListener('click', (event) => {
-            event.preventDefault();
-
-            window.open('/file-manager/fm-button', 'fm', 'width=900,height=600');
-        });
-    });
-
-    // set file link
-    function fmSetLink($url) {
-        document.getElementById('image_label').value = $url;
-    }
-</script>
-@endsection
-
-
-
-@section('css')
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css">
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-<link rel="stylesheet" href="{{ asset('vendor/file-manager/css/file-manager.css') }}">
-@endsection
+<button class="btn-solid btn-primary">Send</button>

@@ -44164,25 +44164,23 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var _this = this;
-
 /* ======================Dropdown=============================*/
 
 /* When the user clicks on the button, 
 toggle between hiding and showing the dropdown content */
-var drop1 = document.querySelector('.drop1');
-var drCont = document.getElementById('profileDropdown');
-var catDr = document.getElementById('catDropdown');
-var drop2 = document.querySelector('.drop2');
+var drop1 = document.querySelector(".drop1");
+var drCont = document.getElementById("profileDropdown");
+var catDr = document.getElementById("catDropdown");
+var drop2 = document.querySelector(".drop2");
 
 if (drop2) {
-  drop2.addEventListener('click', function () {
+  drop2.addEventListener("click", function () {
     catDr.classList.toggle("show");
   });
 }
 
 if (drop1) {
-  drop1.addEventListener('click', function () {
+  drop1.addEventListener("click", function () {
     drCont.classList.toggle("show");
   });
 } // Close the dropdown if the user clicks outside of it
@@ -44201,134 +44199,196 @@ window.onclick = function (e) {
       profileDropdown.classList.remove("show");
     }
   }
-}; // ======================adding recipe=============================
+};
+
+var login = document.querySelector(".login-btn");
+var register = document.querySelector(".reg-btn");
+var popupLog = document.querySelector(".bg-popup-login");
+var popupReg = document.querySelector(".bg-popup-register");
+
+if (login) {
+  login.addEventListener("click", function (e) {
+    e.preventDefault();
+    popupLog.style.display = "block";
+  });
+}
+
+if (register) {
+  register.addEventListener("click", function (e) {
+    e.preventDefault();
+    popupReg.style.display = "block";
+  });
+}
+
+if (register || login) {
+  window.addEventListener("click", function (e) {
+    if (e.target.classList.contains("bg-popup-login") || e.target.classList.contains("bg-popup-register")) {
+      popupLog.style.display = "none";
+      popupReg.style.display = "none";
+    }
+  });
+} // ======================adding recipe=============================
 
 
 var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js")["default"]; //подключени axios
 
 
 if (document.forms.recipe) {
-  var addNewStep = function addNewStep() {
-    var div = document.createElement('div');
-    div.className = 'steps';
-    div.innerHTML = "\n                                <input type=\"file\" name=\"image[]\"  id=\"file\" multiple/>\n                                <input type=\"text\" name=\"\"  />                       \n                            ";
+  var addNewStep = function addNewStep(e) {
+    // e.preventDefault();
+    var div = document.createElement("div");
+    div.className = "steps";
+    div.innerHTML = "\n                        <div class=\"photo\">\n                            <input type=\"file\"  name=\"stepImage[]\"  id=\"file\" multiple value=\"null\"/>\n                        </div>\n                        <div class=\"text\">\n                            <label for=\"stepText[]\">\u041E\u043F\u0438\u0441\u0430\u043D\u0438\u0435 \u0448\u0430\u0433\u0430 \u043F\u0440\u0438\u0433\u043E\u0442\u043E\u0432\u043B\u0435\u043D\u0438\u044F</label>\n                            <textarea type=\"text\"  name=\"stepText[]\"></textarea>\n                        </div>                        \n                            ";
     newStep.append(div);
   };
 
-  var addStep = document.querySelector('.add-step');
-  var newStep = document.querySelector('.new-step');
-  var RemoveNewStep = document.querySelector('.remove-step');
-  var steps = document.querySelector('.steps');
-  var newProduct = document.querySelector('.new-product');
-  var addNewProduct = document.querySelector('.add-product');
-  var prodItem = document.querySelector('.product-item-clean');
-  addStep.addEventListener('click', function () {
-    addNewStep(); // console.log(RemoveNewStep);
-  });
-  document.forms.recipe.addEventListener('submit', function (e) {
+  var addStep = document.querySelector(".add-step");
+  var newStep = document.querySelector(".new-step");
+  var RemoveNewStep = document.querySelector(".remove-step");
+  var steps = document.querySelector(".steps");
+  var newProduct = document.querySelector(".new-product");
+  var addNewProduct = document.querySelector(".add-product");
+  var prodItem = document.querySelector(".product-item-clean");
+  addStep.addEventListener("click", function (e) {
     e.preventDefault();
-    var steps = document.querySelectorAll('.steps');
-    var step = '';
-    var _iteratorNormalCompletion = true;
-    var _didIteratorError = false;
-    var _iteratorError = undefined;
+    addNewStep();
+  });
+  document.forms.recipe.addEventListener("submit", function (e) {
+    e.preventDefault(); // console.log(step);
 
-    try {
-      for (var _iterator = steps[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-        var iterator = _step.value;
-        // console.log(imgSrc.slice(""));
-        step += '<img style="max-width: 100%;" src="/images/recipes/' + iterator.firstElementChild.value.split("\\").pop() + '" /> <br>';
-        step += '<p>' + iterator.lastElementChild.value + '</p> <br>';
-      } // console.log(step);
+    var fd = new FormData(this); // fd.append('steps', step);
 
-    } catch (err) {
-      _didIteratorError = true;
-      _iteratorError = err;
-    } finally {
-      try {
-        if (!_iteratorNormalCompletion && _iterator["return"] != null) {
-          _iterator["return"]();
-        }
-      } finally {
-        if (_didIteratorError) {
-          throw _iteratorError;
-        }
-      }
-    }
-
-    var fd = new FormData(this);
-    fd.append('steps', step);
     axios({
-      method: 'post',
-      url: '/recipes/add',
+      method: "post",
+      url: "/recipes/add",
       data: fd,
       headers: {
-        'Content-Type': 'multipart/form-data'
+        "Content-Type": "multipart/form-data"
       }
     }).then(function (response) {
-      console.log('ANSWER :', response); // return response.data;
+      console.log("ANSWER :", response);
     }).then(function (data) {
       console.log(data);
     })["catch"](function (error) {
-      console.log(error.response.data); // console.log(fd);
-      // console.log(error.response.headers);
+      console.log(error.response.data);
     });
+  }); //     document.forms.recipe.addEventListener('submit', function (e) {
+  //     e.preventDefault();
+  //     let steps = document.querySelectorAll('.steps');
+  //     let step = '';
+  //     for (const iterator of steps) {
+  //         // console.log(imgSrc.slice(""));
+  //         step+='<img style="max-width: 100%;" src="/images/recipes/'+ iterator.firstElementChild.value.split("\\").pop() +'" /> <br>';
+  //         step+='<p>'+iterator.lastElementChild.value+'</p> <br>';
+  //     }
+  //     console.log(step);
+  //     const fd = new FormData(this);
+  //     fd.append('steps', step);
+  //     axios({
+  //         method: 'post',
+  //         url: '/recipes/add',
+  //         data: fd,
+  //         headers: {
+  //             'Content-Type': 'multipart/form-data'
+  //           }
+  //         })
+  //         .then(response=>{
+  //             console.log('ANSWER :', response);
+  //         })
+  //         .then(function(data){
+  //             console.log(data)
+  //         })
+  //         .catch(function (error) {
+  //             console.log(error.response.data);
+  //             })
+  // });
+}
+
+if (document.forms.recipeUpdate) {
+  var _addNewStep = function _addNewStep(e) {
+    // e.preventDefault();
+    var div = document.createElement("div");
+    div.className = "steps";
+    div.innerHTML = "   \n                            <div class=\"photo\">\n                                <input type=\"file\"  name=\"stepImage[]\"  id=\"file\" multiple value=\"null\"/>\n                            </div>\n                            <div class=\"text\">\n                            <label for=\"stepText[]\">\u041E\u043F\u0438\u0441\u0430\u043D\u0438\u0435 \u0448\u0430\u0433\u0430 \u043F\u0440\u0438\u0433\u043E\u0442\u043E\u0432\u043B\u0435\u043D\u0438\u044F</label>\n                                <textarea type=\"text\"  name=\"stepText[]\"></textarea>\n                            </div>    \n                                             \n                        ";
+
+    _newStep.append(div);
+  };
+
+  var _addStep = document.querySelector(".add-step");
+
+  var _newStep = document.querySelector(".new-step");
+
+  var _RemoveNewStep = document.querySelector(".remove-step");
+
+  var _steps = document.querySelector(".steps");
+
+  var _newProduct = document.querySelector(".new-product");
+
+  var _addNewProduct = document.querySelector(".add-product");
+
+  var _prodItem = document.querySelector(".product-item-clean");
+
+  _addStep.addEventListener("click", function (e) {
+    e.preventDefault();
+
+    _addNewStep();
   });
-} // =======================================autocomlete====================
+} // =======================================products====================
 
 
 $(document).ready(function () {
-  $('#productItemClean').children("select").select2();
-  $("#add").click(function () {
+  $("#productItemClean").children("select").select2();
+  $("#add").click(function (e) {
+    e.preventDefault();
     $myClone = $("#productItemClean").clone();
     $myClone.find("span").remove();
     $myClone.find("select").select2(); // $($myClone).css('visibility', 'visible');
     // $($myClone).toggleClass("productItemClean")
 
-    $($myClone).removeAttr('id');
-    $("productItemClean select").attr('name', 'products[]');
-    $($myClone).css('visibility', 'visible');
-    $($myClone).css('height', '25px'); // $($myClone).css('outline', 'none');
+    $($myClone).removeAttr("id");
+    $("productItemClean select").attr("name", "products[]");
+    $($myClone).css("visibility", "visible");
+    $($myClone).css("height", "80px"); // $($myClone).css('outline', 'none');
 
-    $('#new-product').append($myClone);
+    $("#new-product").append($myClone);
   });
 }); // =============================like=============================
 
-var like = document.querySelectorAll('.like');
-var dislike = document.querySelectorAll('.dislike');
-var likeCount = document.querySelectorAll('.like-count');
-var heart = document.querySelectorAll('.fa-heart');
-console.log(heart); //if uder id already liked delete heart from view
+var like = document.querySelectorAll(".like");
+var dislike = document.querySelectorAll(".dislike");
+var likeCount = document.querySelectorAll(".like-count");
+var heart = document.querySelectorAll(".fa-heart"); // console.log(heart)
+//if uder id already liked delete heart from view
 
 like.forEach(function (item) {
-  item.addEventListener('click', function (e) {
+  item.addEventListener("click", function (e) {
     e.preventDefault(); // let liked = e.target.previousElementSibling == null;
 
-    var id = e.target.getAttribute('data-id');
-    var liked = e.target.getAttribute('data-isLiked');
-    console.log(_this.item);
+    var id = e.target.getAttribute("data-id"); // let liked = e.target.getAttribute('data-isLiked')
+    // console.log(this.item)
 
-    if (liked != 'liked') {
-      e.target.classList.add('red');
+    if (!e.target.classList.contains("red")) {
+      e.target.classList.add("red");
       axios({
-        method: 'get',
-        url: '/like/' + id + '/liked'
+        method: "get",
+        url: "/like/" + id + "/liked"
       }).then(function (response) {
         // console.log('ANSWER :', response);
-        e.target.setAttribute('data-isLiked', 'liked');
-        item.innerHTML = response.data; // console.log(item.innerHTML = response.data)
+        e.target.setAttribute("data-isLiked", "liked");
+        item.nextElementSibling.innerHTML = response.data; // console.log(item, response.data)
       })["catch"](function (error) {
         console.log(error.response.data);
       });
     } else {
-      e.target.classList.remove('red');
+      e.target.classList.remove("red");
       axios({
-        method: 'get',
-        url: '/like/' + id + '/disliked'
+        method: "get",
+        url: "/like/" + id + "/disliked"
       }).then(function (response) {
         // console.log('ANSWER :', response);
-        e.target.setAttribute('data-isLiked', '');
-        item.innerHTML = response.data;
+        e.target.setAttribute("data-isLiked", ""); // item.innerHTML = response.data;
+
+        item.nextElementSibling.innerHTML = response.data;
       })["catch"](function (error) {
         console.log(error.response.data);
       });
