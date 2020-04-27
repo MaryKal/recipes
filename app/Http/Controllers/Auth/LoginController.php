@@ -42,7 +42,13 @@ class LoginController extends Controller
 
             return redirect('/admin');
 
-        }else if(\Auth::user()->isUser()){
+        }else if(\Auth::user()->isBlocked()){
+            $message = 'Your account has been blocked.';
+            $logout = auth()->logout();
+                return view('home.blocked', compact('message', 'logout'));
+                // return $message
+        }
+        else if(\Auth::user()->isUser()){
 
             return redirect('/user');
         }
@@ -50,6 +56,7 @@ class LoginController extends Controller
         // else{
         //     return redirect('/home');
         // }
+        
         
     
 }

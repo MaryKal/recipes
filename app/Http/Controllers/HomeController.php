@@ -41,6 +41,13 @@ class HomeController extends Controller
      */
     public function index()
     {
+        
+        // if(\Auth::user()->isBlocked()){
+        //     $message = 'Your account has been blocked.';
+                  
+        //         return auth()->logout();
+        // };
+    // }
         // $categoriesList = $this->categoriesList();
         // $singleCategory = $this->singleCategory($id);
         // $rec = Recipe::find($id)->get();
@@ -93,26 +100,23 @@ class HomeController extends Controller
         return view('categories.single-category', compact('recipes','category'));
     }
 
-    public function allRecipes()
-    {
-    // dd('hi');
-
-        $recipes = \DB::table('recipes')->paginate(5);
-        // $recipes = Recipe::all();
-        // $recipes->paginate(8);
-        // $count = Likes::where('recipe_id', $id)->get()->count();
-
-        // dd($recipes);
-
-        return view('recipes.all-recipes', compact('recipes'));
-    }
-public function singleRecipe($id)
+public function search(Request $request)
 {
-    // dd('hi');
-    $recipe = Recipe::find( $id);
-    $count = Likes::where('recipe_id', $id)->get()->count();
-       
-    return view('recipes.single-recipe', compact('recipe','count'));
+    // $categories = Category::all();
+    $search = $request->get('search');
+    $category = $request->get('category');
+
+$recipes = Recipe::where([ 
+    ['name', 'LIKE', '%' . $search . '%'],
+    ['category_id', 'LIKE', '%'.$category.'%']
+  
+])->paginate(5);
+    // $items['result'] = Recipe::where([ 
+    //     ['name', 'LIKE', '%' . $name . '%'],
+      
+    // ])->get();
+    // dd($recipes);
+    return view('recipes.search-result', compact('recipes', 'category'));
 }
 
 }

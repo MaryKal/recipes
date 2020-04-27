@@ -29,7 +29,7 @@
         </div>
     </div>
 
-    <div class="form-item row">
+    <!-- <div class="form-item row">
         <label for="phone" class="col-12 ">{{ __('Phone') }}</label>
 
         <div class="col-12">
@@ -41,7 +41,7 @@
                 </span>
             @enderror
         </div>
-    </div>
+    </div> -->
 
     <div class="form-item row">
         <label for="password" class="col-12 ">{{ __('Password') }}</label>

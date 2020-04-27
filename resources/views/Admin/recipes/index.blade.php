@@ -27,8 +27,15 @@
             <td ><img src="{{$recipe->image}}" alt="" style="width: 200px; height:200px;"></td>
             
             <td>{{$recipe->describe}}</td>
-            <td>{{$recipe->likes}}</td>
-            
+            <td>{{$recipe->likes->count()}}</td>
+            <td><a href="/admin/recipes/{{$recipe->id}}/edit" class="btn">Edit</a>
+                    <form action="/admin/recipes/{{$recipe->id}}" method="POST">
+                        @method('DELETE')
+                        @csrf
+
+                        <button class="btn danger">Delete</button>
+
+                    </form></td>
             </tr>
             @endforeach
             

@@ -13,7 +13,7 @@ $factory->define(Recipe::class, function (Faker $faker) {
         'slug' => \Str::slug($name, '-'),
         'image' => '',
         'describe' => $faker->text(200),
-        'steps' => $faker->text(200),
+        // 'steps' => $faker->text(200),
         // 'likes' => $faker->randomNumber(NULL, false),
         'time' => $faker->randomNumber(NULL, false),
         'persons' => $faker->randomNumber(NULL, false),

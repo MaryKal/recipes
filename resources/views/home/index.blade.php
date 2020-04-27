@@ -11,14 +11,13 @@
         @foreach($categories as $category)
         <div class="category-card" style="background-image:url({{$category->img}});background-size:cover;">
             <h4><a href="categories/{{$category->id}}">{{$category->name}}</a></h4>
-            <img src="" alt="">
         </div>
         @endforeach
 
 
     </div>
     <div class="center">
-        <a href="/categories" class="btn">All categories</a>
+       <a href="/categories" class="btn-solid">All categories</a>
     </div>
 </div>
 <div class="new-rec-wrapper">
@@ -26,35 +25,44 @@
     <div class="newest-recipes">
         @foreach($recipes as $recipe)
 <div class="recipe-card">
- 
-            <img src="{{$recipe->image}}" alt="" style="width: 100%; height:40%;">
-     
-            <h3><a href="recipes/{{$recipe->id}}">{{$recipe->name}}</a></h3>
 
-            <p>{{\Str::limit(strip_tags($recipe->describe), 40, '...')}}
+            <img src="{{$recipe->image}}" alt="" >
+
+     
+            <h3><a href="/recipe/{{$recipe->id}}">{{\Str::limit(strip_tags($recipe->name), 15, '...')}}</a></h3>
+
+            <p>{{\Str::limit(strip_tags($recipe->describe), 35, '...')}}
                                 
             </p>
 
             <div class="rec-describe">
                 <ul>
                     <li><i class="far fa-hourglass"></i>{{$recipe->time}}</li>
-                    <li>
-                    <i class="far fa-heart like"  data-id="{{$recipe->id}}"></i>                        
-                    <a href="#" class="like-count"></a>
+                    <li>                 
+                    <i class="far fa-heart like {{$recipe->likesByUser ? 'red' : ''}}"    data-id="{{$recipe->id}}"></i>                        
+                    <span class="like-count">{{$recipe->likes->count()}}</span>
                     </li>
-                    
-                    
-                    <!-- <li>
-                    <a class=" dislike" href="#" data-id="{{$recipe->id}}" data-isLiked="">dislike</a>                
-                    </li> -->
-                 
                 </ul>
             </div>
         </div>
         @endforeach
     </div>
     <div class="center">
-        <a href="recipes/" class="btn">View all recipes</a>
+        <a href="recipes/" class="btn-solid">View all recipes</a>
     </div>
 </div>
+
+<div class="about">
+    <div class="img">
+    
+
+    </div>
+    <div class="describe">
+        <h2>Lorem ipsum dolor, sit amet consectetur adipisicing elit.</h2>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam, dicta itaque repellat labore minus quibusdam consequuntur tempore molestiae amet pariatur cupiditate consequatur sequi nesciunt aperiam esse repellendus! Asperiores tempora minima repudiandae maiores reprehenderit ex magnam quas? Ullam, ea. Fugiat, repellat.</p>
+    </div>
+</div>
+
+
+
 @endsection
